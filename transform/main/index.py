@@ -14,9 +14,6 @@ def index():
 
 @app.route('/complete', methods = ['GET', 'POST'])
 def transform_file():
-    print("uploaded_file_path:", uploaded_file_path)
-    print("gened_file_path:", gened_file_path)
-    print(os.getcwd())
     if request.method == 'POST':
         try:
             f = request.files['file']

@@ -8,6 +8,15 @@ app = Flask(__name__)
 uploaded_file_path = os.getcwd() + "/transform/main/static/uploads/"
 gened_file_path = os.getcwd() + "/transform/main/static/gen_files/"
 
+def files_removing(file_path):
+    file_list = os.listdir(file_path)
+    if file_list == []:
+        print(file_list, "삭제할 파일이 없습니다.")
+        return 0
+    else:
+        for file in file_list:
+            os.remove(file_path + file)
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -15,6 +24,8 @@ def index():
 @app.route('/complete', methods = ['GET', 'POST'])
 def transform_file():
     if request.method == 'POST':
+        files_removing(uploaded_file_path)
+        files_removing(gened_file_path)
         try:
             f = request.files['file']
             upload_file_path = uploaded_file_path + secure_filename(f.filename)

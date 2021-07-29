@@ -30,6 +30,7 @@ def transform_file():
             f = request.files['file']
             upload_file_path = uploaded_file_path + secure_filename(f.filename)
             gen_file_path = gened_file_path + '발주파일.xlsx'
+            
             f.save(upload_file_path)
             order2order(upload_file_path).to_excel(gen_file_path)
             return render_template('complete.html')

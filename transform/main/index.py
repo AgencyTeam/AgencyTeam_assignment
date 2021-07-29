@@ -2,11 +2,11 @@ from flask import Flask, request, render_template, flash, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask import current_app as app
 from data_transform import order2order
-import pandas as pd
+import os
 
 app = Flask(__name__)
-uploaded_file_path = "C:/Users/wkdtj/Desktop/AgencyTeam/my_reopsitory/AgencyTeam_assignment_1/transform/main/static/uploads/"
-gened_file_path = "C:/Users/wkdtj/Desktop/AgencyTeam/my_reopsitory/AgencyTeam_assignment_1/transform/main/static/gen_files/"
+uploaded_file_path = os.getcwd() + "/transform/main/static/uploads/"
+gened_file_path = os.getcwd() + "/transform/main/static/gen_files/"
 
 @app.route('/', methods=['GET'])
 def index():
@@ -14,6 +14,9 @@ def index():
 
 @app.route('/complete', methods = ['GET', 'POST'])
 def transform_file():
+    print("uploaded_file_path:", uploaded_file_path)
+    print("gened_file_path:", gened_file_path)
+    print(os.getcwd())
     if request.method == 'POST':
         try:
             f = request.files['file']

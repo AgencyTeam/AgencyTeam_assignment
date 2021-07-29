@@ -90,10 +90,10 @@ def order2order(file_path):
     'province', 'city', 'area', 'detailed address', 'settle price']
 
     order_form_df = excel2df(file_path, sheet_name=sheet_name['발주'])
-    order_columns = list(order_form_df.columns)
-
     order_df = excel2df(file_path, sheet_name=sheet_name['주문[영문]'])
     master_df = excel2df(file_path, sheet_name=sheet_name['마스터'])
+
+    order_columns = list(order_form_df.columns)
 
     transformed_order_df = df_transform(order_df, need_columns)
     new_order_df = generate_df(transformed_order_df, master_df, order_columns)

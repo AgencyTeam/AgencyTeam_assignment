@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+  <head>
+    <title>pyftp</title>
+  </head>
+
+  <body>
+    <center><h1>Completed!</h1></center>
+    <center><a href="/">업로드 페이지</a><br><center>
+    <hr width="100%" color="black"/>
+    <center><h3>transform Completed File!</h3></center>
+    <hr width="100%" color="black"/>
+
+    <img src="{{ url_for('static', filename = 'images/excel.png') }}", width="100" 
+        style="margin-left: auto; margin-right: auto; display: block;")/>
+
+    <br><br>
+    <center>
+      발주파일 다운로드 -->
+      <a href="{{ url_for('static', filename = 'gen_files/발주파일.xlsx') }}" download="complete.xlsx">발주파일.xlsx</a>
+      <br>
+      물류파일 다운로드 -->
+      <a href="{{ url_for('static', filename = 'gen_files/발주파일.xlsx') }}" download="complete.xlsx">물류파일.xlsx</a>
+    </center>
+  </body>
+</html>
+

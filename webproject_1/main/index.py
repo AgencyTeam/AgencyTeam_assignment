@@ -2,11 +2,13 @@ from flask import Flask, request, render_template, flash, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask import current_app as app
 from order_transform import order2order
+from distribution_transform import distributon_from_orderinfo
 import os
 
+
 app = Flask(__name__)
-uploaded_file_path = os.getcwd() + "/webproject_1/main/static/uploads/"
-gened_file_path = os.getcwd() + "/webproject_1/main/static/gen_files/"
+uploaded_file_path = os.getcwd() + "/AgencyTeam_assignment_1/webproject_1/main/static/uploads/"
+gened_file_path = os.getcwd() + "/AgencyTeam_assignment_1/webproject_1/main/static/gen_files/"
 
 def files_removing(file_path):
     file_list = os.listdir(file_path)
@@ -31,12 +33,12 @@ def transform_file():
             upload_file_path = uploaded_file_path + secure_filename(f.filename)
 
             gen_file_path_1 = gened_file_path + '발주파일.xlsx'
-            # gen_file_path_2 = gened_file_path + '물류파일.xlsx'
+            gen_file_path_2 = gened_file_path + '물류파일.xlsx'
             
             f.save(upload_file_path)
 
             order2order(upload_file_path).to_excel(gen_file_path_1)
-            # order2dist(upload_file_path).to_excel(gen_file_path_2)
+            distributon_from_orderinfo(upload_file_path).to_excel(gen_file_path_2)
             
             return render_template('complete.html')
         except:

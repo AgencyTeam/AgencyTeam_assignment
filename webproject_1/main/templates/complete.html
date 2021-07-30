@@ -17,11 +17,14 @@
 
     <br><br>
     <center>
-      발주파일 다운로드 -->
-      <a href="{{ url_for('static', filename = 'gen_files/발주파일.xlsx') }}" download="물류파일.xlsx">발주파일.xlsx</a>
+      발주파일.xlsx 다운로드 -->
+      <a href="{{ url_for('static', filename = 'gen_files/발주파일.xlsx') }}" download="발주파일.xlsx">발주파일.xlsx</a>
+      <br>
+      발주파일.json 다운로드 -->
+      <a href="{{ url_for('static', filename = 'gen_files/발주파일.json') }}" download="발주파일.json">발주파일.json</a>
       <br>
       물류파일 다운로드 -->
-      <a href="{{ url_for('static', filename = 'gen_files/물류파일.xlsx') }}" download="발주파일.xlsx">물류파일.xlsx</a>
+      <a href="{{ url_for('static', filename = 'gen_files/물류파일.xlsx') }}" download="물류파일.xlsx">물류파일.xlsx</a>
     </center>
   </body>
 </html>

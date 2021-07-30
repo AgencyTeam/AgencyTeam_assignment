@@ -36,8 +36,8 @@ def transform_file():
             f.save(upload_file_path)
 
             order2order(upload_file_path).to_excel(gen_file_path_1)
-            # dist2dist(upload_file_path).to_excel(gen_file_path_2)
-
+            # order2dist(upload_file_path).to_excel(gen_file_path_2)
+            
             return render_template('complete.html')
         except:
             return '파일 변환에 실패하였습니다. 다시 시도해주세요.'

@@ -1,15 +1,15 @@
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 from flask import current_app as app
 from order_transform import order2order
-from distribution_transform import distributon_from_orderinfo
+from Excel_to_Json import excel2json
 import os
 
-
 app = Flask(__name__)
-uploaded_file_path = os.getcwd() + "/AgencyTeam_assignment_1/webproject_1/main/static/uploads/"
-gened_file_path = os.getcwd() + "/AgencyTeam_assignment_1/webproject_1/main/static/gen_files/"
+uploaded_file_path = os.getcwd() + "/webproject_1/main/static/uploads/"
+gened_file_path = os.getcwd() + "/webproject_1/main/static/gen_files/"
 
+# file_path에 있는 파일들 삭제하는 함수
 def files_removing(file_path):
     file_list = os.listdir(file_path)
     if file_list == []:
@@ -33,12 +33,15 @@ def transform_file():
             upload_file_path = uploaded_file_path + secure_filename(f.filename)
 
             gen_file_path_1 = gened_file_path + '발주파일.xlsx'
-            gen_file_path_2 = gened_file_path + '물류파일.xlsx'
+            # gen_file_path_2 = gened_file_path + '물류파일.xlsx'   # 물류파일 저장할 경로
             
             f.save(upload_file_path)
 
             order2order(upload_file_path).to_excel(gen_file_path_1)
-            distributon_from_orderinfo(upload_file_path).to_excel(gen_file_path_2)
+            # 물류파일정제함수(upload_file_path).to_excel(gen_file_path_2)
+
+            excel2json(gen_file_path_1, gened_file_path + "발주파일.json")
+            # excel2json(gen_file_path_2, gened_file_path + "물류파일.json")
             
             return render_template('complete.html')
         except:

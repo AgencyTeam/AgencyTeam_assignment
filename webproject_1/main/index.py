@@ -28,24 +28,20 @@ def index():
 
 @app.route('/complete', methods = ['GET', 'POST'])
 def transform_file():
-    print("trans 시작")
     if request.method == 'POST':
         files_removing(uploaded_file_path)
         files_removing(gened_file_path)
         try:
-            print("try")
             f = request.files['file']
             upload_file_path = uploaded_file_path + secure_filename(f.filename)
-            print(upload_file_path)
+
             gen_file_path_1 = gened_file_path + '발주파일.xlsx'
             gen_file_path_2 = gened_file_path + '물류파일.xlsx'   # 물류파일 저장할 경로
-            print(gen_file_path_2)
             f.save(upload_file_path)
 
             order2order(upload_file_path).to_excel(gen_file_path_1)
-            print("order 완료")
             distributon_from_orderinfo(upload_file_path).to_excel(gen_file_path_2)
-            print("dist 완료")
+            
             excel2json(gen_file_path_1, gened_file_path + "발주파일.json")
             excel2json(gen_file_path_2, gened_file_path + "물류파일.json")
             

@@ -6,11 +6,11 @@ from Excel_to_Json import excel2json
 from distribution_transform import distributon_from_orderinfo
 import os
 
-#파일경로 /AgencyTeam_assignment_1 추가함
 app = Flask(__name__)
+
 uploaded_file_path = os.getcwd() + "/webproject_1/main/static/uploads/"
 gened_file_path = os.getcwd() + "/webproject_1/main/static/gen_files/"
-print(os.getcwd())
+
 # file_path에 있는 파일들 삭제하는 함수
 def files_removing(file_path):
     file_list = os.listdir(file_path)

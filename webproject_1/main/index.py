@@ -50,4 +50,4 @@ def transform_file():
             return '파일 변환에 실패하였습니다. 다시 시도해주세요.'
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')

@@ -21,6 +21,17 @@ def order_info(file_path, sheet_name = None):
 
 def distribution_df(order_info_df):
     New_distribution_df = pd.DataFrame({'Shipment Reference No.': order_info_df["order No."],
+                                    'Shipment Reference No.2' : order_info_df["order No."],
+                                    'Customer Account No.' : order_info_df[" "],
+                                    'Company Name' : order_info_df["LF corp"],
+                                    'Contact Name' : order_info_df["Jiyeon song"],
+                                    'Tel' : order_info_df["821033117252"],
+                                    'Address' : order_info_df["Room 1319, Mirabell tower 13F, 362-2, Yeongcheon-dong"],
+                                    'City' : order_info_df["Hwaseong-si"],
+                                    'Province': order_info_df["Gyeonggi-do"],
+                                    'Country/Region' : order_info_df["Korea"],
+                                    'Email':order_info_df[" "],
+                                    'Postal Code':order_info_df["18469"],
                                     'Receiver Contact Name': order_info_df["customer name"],
                                     'Receiver Chinese Name': '',
                                     'Receiver Tel': order_info_df["customer phone"],

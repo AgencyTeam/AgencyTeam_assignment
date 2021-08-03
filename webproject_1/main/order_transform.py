@@ -87,7 +87,7 @@ def generate_df(transformed_order_df, order_columns):
 
     # 만든 dict -> df로 변환
     new_df = pd.DataFrame(order_dict)
-
+    
     # 얻지 못하는 값들은 빈 값 처리
     for column in order_columns:
         if (column in new_df.columns):
@@ -113,6 +113,7 @@ def order2order(file_path):
     master_df = excel2df(file_path, sheet_name=sheet_name['마스터'])
 
     transformed_order_df = df_transform(order_df, master_df, need_columns)
+    
     new_order_df = generate_df(transformed_order_df, order_columns)
 
     return new_order_df

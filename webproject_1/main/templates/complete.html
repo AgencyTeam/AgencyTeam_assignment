@@ -6,10 +6,10 @@
   </head>
 
   <body>
-    <center><h1>Completed!</h1></center>
-    <center><a href="/">업로드 페이지</a><br><center>
+    <center><h1>AgencyTeam assignments</h1></center>
+    <center><a href="/">메인 페이지</a><br><center>
     <hr width="100%" color="black"/>
-    <center><h3>transform Completed File!</h3></center>
+    <center><h3>Transform Completed Files!</h3></center>
     <hr width="100%" color="black"/>
 
     <img src="{{ url_for('static', filename = 'images/excel.png') }}", width="100" 
@@ -17,18 +17,40 @@
 
     <br><br>
     <center>
-      발주파일.xlsx 다운로드 -->
-      <a href="{{ url_for('static', filename = 'gen_files/발주파일.xlsx') }}" download="발주파일.xlsx">발주파일.xlsx</a>
-      <br>
-      발주파일.json 다운로드 -->
-      <a href="{{ url_for('static', filename = 'gen_files/발주파일.json') }}" download="발주파일.json">발주파일.json</a>
-      <br>
-      물류파일.xlsx 다운로드 -->
-      <a href="{{ url_for('static', filename = 'gen_files/물류파일.xlsx') }}" download="물류파일.xlsx">물류파일.xlsx</a>
-      <br>
-      물류파일.json 다운로드 -->
-      <a href="{{ url_for('static', filename = 'gen_files/물류파일.json') }}" download="물류파일.json">발주파일.json</a>
-      <br>
+      <table border="1">
+        <tr>
+          <td>
+            발주파일.xlsx 다운로드 -->
+          </td>
+          <td>
+            <a href="{{ url_for('static', filename = 'gen_files/발주파일.xlsx') }}" download="발주파일.xlsx">발주파일.xlsx</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            발주파일.json 다운로드 -->
+          </td>
+          <td>
+            <a href="{{ url_for('static', filename = 'gen_files/발주파일.json') }}" download="발주파일.json">발주파일.json</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            물류파일.xlsx 다운로드 -->
+          </td>
+          <td>
+            <a href="{{ url_for('static', filename = 'gen_files/물류파일.xlsx') }}" download="물류파일.xlsx">물류파일.xlsx</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            물류파일.json 다운로드 -->
+          </td>
+          <td>
+            <a href="{{ url_for('static', filename = 'gen_files/물류파일.json') }}" download="물류파일.json">물류파일.json</a>
+          </td>
+        </tr>
+      </table>
     </center>
   </body>
 </html>

@@ -24,7 +24,7 @@ def files_removing(file_path):
 @app.route('/', methods=['GET'])
 def index():
     print("index")
-    return render_template('index.html')
+    return render_template('base.html')
 
 @app.route('/complete', methods = ['GET', 'POST'])
 def transform_file():

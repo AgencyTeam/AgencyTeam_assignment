@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">메인</a></li>
+      <li class="breadcrumb-item"><a href="/order">발주</a></li>
+      <li class="breadcrumb-item active" aria-current="page">완료</li>
+    </ol>
+  </nav>
+  <center><h3>Transform Completed File!</h3></center>
+  <hr width="100%" color="black"/>
+
+  <img src="{{ url_for('static', filename = 'images/excel.png') }}", width="100" 
+      style="margin-left: auto; margin-right: auto; display: block;")/>
+
+  <br><br>
+  <center>
+    <a href="{{ url_for('static', filename = 'files/gen_files/발주파일.xlsx') }}" download>
+      <button type="button" class="btn btn-primary btn-lg">발주파일.xlsx</button>
+    </a>
+    <a href="{{ url_for('static', filename = 'files/gen_files/발주파일.json') }}" download>
+      <button type="button" class="btn btn-secondary btn-lg">발주파일.json</button>
+    </a>
+  </center>
+</body>
+{% endblock %}

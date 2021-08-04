@@ -55,6 +55,13 @@ def distribution():
 def distribution_transform():
     pass
 
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
+    pass
+
+@app.route('/upload/complete', methods = ['GET', 'POST'])
+def upload_transform():
+    pass
 
 # @app.route('/complete', methods = ['GET', 'POST'])
 # def transform_file():

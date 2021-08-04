@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+        <!-- Page content-->
+        {% block content %}
+            <div class="container">
+                <div class="text-center mt-5">
+                    <h1>Decant File Transform</h1>
+                    <br>
+                    <img src="{{ url_for('static', filename = 'images/transformation.png') }}", width="300" 
+                        style="margin-left: auto; margin-right: auto; display: block;")/>
+                    <br>
+                    <hr width="100%" color="black"/>
+                    <button type="button" onclick="location.href='order'" class="btn btn-dark">발주파일</button>
+                    <button type="button" onclick="location.href='#'" class="btn btn-dark">물류파일</button>
+                    <button type="button" onclick="location.href='#'" class="btn btn-dark">업로드파일</button>
+                    <!-- <a href="#" class="button Rectangle black">발주파일</a>
+                    <a href="#" class="button Rectangle black">물류파일</a>
+                    <a href="#" class="button Rectangle black">업로드파일</a> -->
+                    <br>
+                </div>
+            </div>
+        {% endblock %}

@@ -1,4 +1,3 @@
-# from AgencyTeam_assignment_1.tmp.data_transform import df_transform
 import pandas as pd
 
 ##주문정보->물류파일 변환
@@ -19,6 +18,7 @@ def order_info(file_path, sheet_name = None):
         print("csv파일을 불러오는데 실패했습니다.")
         return 0
 
+#공백, 복붙 임의로 기입
 def distribution_df(order_info_df):
     New_distribution_df = pd.DataFrame({'Shipment Reference No.': order_info_df["order No."],
                                     'Shipment Reference No.2' : order_info_df["order No."],
@@ -31,7 +31,7 @@ def distribution_df(order_info_df):
                                     'Province': "Gyeonggi-do",
                                     'Country/Region' : "Korea",
                                     'Email':" ",
-                                    'Postal Code':"18469", #공백, 복붙 임의로 기입
+                                    'Postal Code':"18469",
                                     'Receiver Contact Name': order_info_df["customer name"],
                                     'Receiver Chinese Name': '',
                                     'Receiver Tel': order_info_df["customer phone"],
@@ -87,8 +87,9 @@ def distribution_df(order_info_df):
                                     })
     return New_distribution_df
 
+#주문정보의 sheetname이 "secoo주문영문"이어야함
 def distributon_from_orderinfo(file_path):
-    order_info_df = order_info(file_path, sheet_name = "secoo주문영문")
+    order_info_df = order_info(file_path, sheet_name = "secoo주문영문") 
     New_distribution_df = distribution_df(order_info_df)
 
     return New_distribution_df

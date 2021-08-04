@@ -40,10 +40,24 @@
         <!-- Page content-->
         <div class="container">
             <div class="text-center mt-5">
-                <h1></h1>
-                <p class="lead">A complete project boilerplate built with Bootstrap</p>
-                <p>Bootstrap v5.0.2</p>
+                <h1><strong>AgencyTEAM 발주파일 변환</strong></h1>
+                <p class="lead">주문정보를 발주파일로 변환</p>
+            
             </div>
+            <center>
+                <form action="http://127.0.0.1:5000/complete" method="post" enctype="multipart/form-data" name="파일변환">
+                    <div>
+                        발주파일로 변환할 주문정보 파일을 선택하세요.
+                    </div>
+                    <div class="filebox">
+                        <input type="file" name="file"/>
+                        <input type="submit" name="발주파일 변환" value="업로드 및 파일변환">
+                        <input type="text" name = "filename" value="저장할 파일명을 입력하세요.">
+                    </div>
+                </form>
+                <img src ="https://cdn.imweb.me/thumbnail/20210731/1aef5c8cee896.png">
+
+            </center>
         </div>
 
         <!-- Bootstrap core JS-->

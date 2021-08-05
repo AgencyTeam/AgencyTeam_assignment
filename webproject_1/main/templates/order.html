@@ -8,16 +8,24 @@
       <li class="breadcrumb-item active" aria-current="page">발주</li>
     </ol>
   </nav>
-  <center><h3>Upload File!</h3></center>
+  <center><h3>AgencyTEAM 발주파일 변환</h3></center>
   <hr width="100%" color="black"/>
   <br>
-  <img src="{{ url_for('static', filename = 'images/upload.png') }}", width="100" 
-      style="margin-left: auto; margin-right: auto; display: block;")/>
+  <img src="https://cdn.imweb.me/thumbnail/20210731/1aef5c8cee896.png", width="500" 
+      style="margin-left: auto; margin-right: auto; display: block;"/>
 
   <br><br><center>
   <form action = "http://127.0.0.1:5000/complete" method = "POST" enctype = "multipart/form-data">
+    <!-- <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">파일선택</span>
+      </div>
+      <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    </div> -->
     <input type = "file" name = "file" />
-    <input type = "submit" value="업로드"/>
+    <!-- <button type="button" class="btn btn-secondary btn-sm">파일선택</button> -->
+    <input type = "submit" value="파일변환"/>
+      <!-- <button type="button" class="btn btn-secondary btn-sm">파일변환</button> -->
   </form></center>
 </body>
 {% endblock %}

@@ -22,7 +22,7 @@ def files_removing(file_path):
             os.remove(file_path + file)
 
 @app.route('/', methods=['GET'])
-def index():
+def main():
     print("index")
     return render_template('main.html')
 

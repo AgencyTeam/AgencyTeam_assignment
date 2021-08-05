@@ -8,16 +8,16 @@
         <li class="breadcrumb-item active" aria-current="page">발주</li>
       </ol>
     </nav>
-    <center><h3>Upload File</h3></center>
+    <center><h3>AgencyTEAM 발주파일 변환</h3></center>
     <hr width="100%" color="black"/>
     <br>
-    <img src="{{ url_for('static', filename = 'images/upload.png') }}", width="100" 
-        style="margin-left: auto; margin-right: auto; display: block;")/>
+    <img src="{{ url_for('static', filename = 'images/decant.png') }}", width="500" 
+      style="margin-left: auto; margin-right: auto; display: block;"/>
 
     <br><br><center>
     <form action = "{{ url_for('order_transform') }}" method = "POST" enctype = "multipart/form-data">
       <input type = "file" name = "file" />
-      <input type = "submit" value="업로드"/>
+      <input type = "submit" value="파일변환"/>
     </form></center>
   </body>
 {% endblock %}

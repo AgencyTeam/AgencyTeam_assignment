@@ -87,6 +87,7 @@ def distribution_df(order_info_df):
                                     })
     return New_distribution_df
 
+
 #주문정보의 sheetname이 "secoo주문영문"이어야함
 def distributon_from_orderinfo(file_path):
     order_info_df = order_info(file_path, sheet_name = "secoo주문영문") 

@@ -1,18 +1,21 @@
 {% extends "base.html" %}
-        <!-- Page content-->
-        {% block content %}
-            <div class="container">
-                <div class="text-center mt-5">
-                    <h1>Decant File Transform</h1>
-                    <br>
-                    <img src="{{ url_for('static', filename = 'images/transformation.png') }}", width="300" 
-                        style="margin-left: auto; margin-right: auto; display: block;")/>
-                    <br>
-                    <hr width="100%" color="black"/>
-                    <button type="button" onclick="location.href='order'" class="btn btn-dark">발주파일</button>
-                    <button type="button" onclick="location.href='distribution'" class="btn btn-dark">물류파일</button>
-                    <button type="button" onclick="location.href='upload'" class="btn btn-dark">업로드파일</button>
-                    <br>
+    {% block content %}
+        <div class="container-fluid bg-dark">
+            <center>
+                <p class="fs-1 text-white">Decant Excel Transform</p>
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" onclick="location.href='order'" class="btn btn-secondary">발주파일</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" onclick="location.href='distribution'" class="btn btn-secondary">물류파일</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" onclick="location.href='upload'" class="btn btn-secondary">업로드파일</button>
+                    </div>
                 </div>
-            </div>
-        {% endblock %}
+                <img src="{{ url_for('static', filename = 'images/decant.png') }}", width="100%" style="margin-left: auto; margin-right: auto; display: block;")/><br>
+            </center>
+        </div>
+    {% endblock %}

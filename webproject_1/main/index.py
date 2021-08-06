@@ -8,8 +8,8 @@ import os
 
 app = Flask(__name__)
 
-upload_path = os.getcwd() + "/webproject_1/main/static/files/upload_files/"
-gen_path = os.getcwd() + "/webproject_1/main/static/files/gen_files/"
+upload_path = os.path.dirname(os.path.realpath(__file__)) + '\\static\\files\\upload_files\\'
+gen_path = os.path.dirname(os.path.realpath(__file__)) + '\\static\\files\\gen_files\\'
 
 # file_path에 있는 파일들 삭제하는 함수
 def files_removing(file_path):
@@ -23,7 +23,6 @@ def files_removing(file_path):
 
 @app.route('/', methods=['GET'])
 def main():
-    print("index")
     return render_template('main.html')
 
 @app.route('/order', methods=['GET', 'POST'])
@@ -37,13 +36,16 @@ def order_transform():
         files_removing(upload_path)
         files_removing(gen_path)
         try:
-            f = request.files['file']
-            upload_file = upload_path + secure_filename(f.filename)
-            gen_file = gen_path + '발주파일.xlsx'
-            f.save(upload_file)
-            order2order(upload_file).to_excel(gen_file)
-            excel2json(gen_file, gen_path + "발주파일.json")
-            return render_template('order_complete.html')
+            if request.method == 'POST':
+                f = request.files['file']
+                form_data = request.form
+                upload_file = upload_path + secure_filename(f.filename)
+                gen_file = gen_path + '발주파일.xlsx'
+                f.save(upload_file)
+                order2order(upload_file, form_data).to_excel(gen_file)
+                # excel2json(gen_file, gen_path + "발주파일.json")
+
+                return render_template('order_complete.html')
         except:
             return '파일 변환에 실패하였습니다. 다시 시도해주세요.'
 

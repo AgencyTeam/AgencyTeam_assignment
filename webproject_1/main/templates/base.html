@@ -9,12 +9,15 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename = 'assets/favicon.ico') }}" />
         <!-- Bootstrap css -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <!-- Bootstrap js -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     </head>
 
     <body>
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
             <a class="navbar-brand" href="/">AgencyTeam X 데청캠</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -22,21 +25,23 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="/">메인</a>
+                  <a class="nav-link" href="/login">Login</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/order">발주</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/distribution">물류</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/upload">업로드</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Page Link
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/">메인</a></li>
+                    <li><a class="dropdown-item" href="/order">발주파일</a></li>
+                    <li><a class="dropdown-item" href="/distribution">물류파일</a></li>
+                    <li><a class="dropdown-item" href="/upload">업로드파일</a></li>
+                  </ul>
                 </li>
               </ul>
             </div>
+          </div>
         </nav>
-        
         <!-- Page content-->
         {% block content %}
         {% endblock %}

@@ -22,7 +22,7 @@ def order_info(file_path, sheet_name = None):
 def distribution_df(order_info_df):
     New_distribution_df = pd.DataFrame({'Shipment Reference No.': order_info_df["order No."],
                                     'Shipment Reference No.2' : order_info_df["order No."],
-                                    'Customer Account No.' : " ",
+                                    'Customer Account No.' : "",
                                     'Company Name' : "LF corp",
                                     'Contact Name' : "Jiyeon song",
                                     'Tel' : "821033117252",
@@ -30,7 +30,7 @@ def distribution_df(order_info_df):
                                     'City' : "Hwaseong-si",
                                     'Province': "Gyeonggi-do",
                                     'Country/Region' : "Korea",
-                                    'Email':" ",
+                                    'Email':"",
                                     'Postal Code':"18469",
                                     'Receiver Contact Name': order_info_df["customer name"],
                                     'Receiver Chinese Name': '',

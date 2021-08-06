@@ -18,24 +18,21 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">AgencyTeam X 데청캠</a>
+            <a class="navbar-brand fw-bold" href="/">Agency Team</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
               <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropstart">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Page Link
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/">메인</a></li>
-                    <li><a class="dropdown-item" href="/order">발주파일</a></li>
-                    <li><a class="dropdown-item" href="/distribution">물류파일</a></li>
-                    <li><a class="dropdown-item" href="/upload">업로드파일</a></li>
+                    <li><a class="dropdown-item" href="/">Main</a></li>
+                    <li><a class="dropdown-item" href="/order">Order File Transform</a></li>
+                    <li><a class="dropdown-item" href="/distribution">Distribution File Transform</a></li>
+                    <li><a class="dropdown-item" href="/upload">Upload File Transform</a></li>
                   </ul>
                 </li>
               </ul>
@@ -45,5 +42,13 @@
         <!-- Page content-->
         {% block content %}
         {% endblock %}
+
+        <!-- footer -->
+        <footer class="bg-dark text-center text-white">
+          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <p class="fst-italic">Developer : 장성태 이성수 신지은 서혜원</p>
+            <p class="fst-italic">© 2021 Copyright : Agency Team x 데이터청년캠퍼스[서울여대]</p>
+          </div>
+        </footer>
     </body>
 </html>

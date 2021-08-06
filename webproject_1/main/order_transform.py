@@ -25,9 +25,9 @@ def df_transform(order_df, master_df, need_columns):
             order_df = order_df.drop(column, axis=1)
 
     # 주소 combination
-    fixed_address = [f"{a} {b} {c}" for a, b, c in zip(order_df["province"], order_df["city"], order_df["area"])]
-    order_df = order_df.drop(["province", "city", "area"], axis=1)
-    order_df["fixed address"] = fixed_address
+    # fixed_address = [f"{a} {b} {c}" for a, b, c in zip(order_df["province"], order_df["city"], order_df["area"])]
+    # order_df = order_df.drop(["province", "city", "area"], axis=1)
+    # order_df["fixed address"] = fixed_address
 
     # 판매가, 배송비 column 생성
     customer_price = []
@@ -65,14 +65,14 @@ def generate_df(transformed_order_df, order_columns):
                 ymd = date.split(' ')
                 tmp.append(ymd[0])
             order_dict["결제일시"] = tmp
-        elif (column == "customer name"):
-            order_dict["주문자성명"], order_dict["수령자 이름"] = data, data
-        elif (column == "customer phone"):
-            order_dict["주문자 전화번호"], order_dict["주문자 휴대폰"], order_dict["수령자 전화번호"], order_dict["수령자 휴대폰"] = data, data, data, data
-        elif (column == "fixed address"):
-            order_dict["주문자 고정주소"], order_dict["수령자 고정주소"] = data, data
-        elif (column == "detailed address"):
-            order_dict["주문자 상세주소"], order_dict["수령자 상세주소"] = data, data
+        # elif (column == "customer name"):
+        #     order_dict["주문자성명"], order_dict["수령자 이름"] = data, data
+        # elif (column == "customer phone"):
+        #     order_dict["주문자 전화번호"], order_dict["주문자 휴대폰"], order_dict["수령자 전화번호"], order_dict["수령자 휴대폰"] = data, data, data, data
+        # elif (column == "fixed address"):
+        #     order_dict["주문자 고정주소"], order_dict["수령자 고정주소"] = data, data
+        # elif (column == "detailed address"):
+        #     order_dict["주문자 상세주소"], order_dict["수령자 상세주소"] = data, data
         elif (column == "settle price"):
             data = list(map(int, data))
             order_dict["실판매가"] = list(map(lambda x: x/67*100, data))
@@ -100,10 +100,9 @@ def generate_df(transformed_order_df, order_columns):
 
     return new_df
 
-def order2order(file_path):
+def order2order(file_path, data):
     sheet_name = {'발주': '발주파일', '물류': '물류파일', '상품': 'commodity', '주문[영문]': 'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
-    need_columns = ['product model', 'vendor product No.', 'product quantity', 'order No.', 'create time', 'customer name', 'customer phone',
-    'province', 'city', 'area', 'detailed address', 'settle price']
+    need_columns = ['product model', 'vendor product No.', 'product quantity', 'order No.', 'create time', 'settle price']
     order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자성명', '주문자 전화번호',
     '주문자 휴대폰', '주문자 이메일', '주문자 우편번호', '주문자 고정주소', '주문자 상세주소', '수령자 이름', '수령자 전화번호', '수령자 휴대폰',
     '수령자 이메일', '수령자 우편번호', '수령자 고정주소', '수령자 상세주소', '주문 메모', '업체 코드', '외부몰 부주문 코드', '환율', 165, 

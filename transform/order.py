@@ -1,12 +1,18 @@
+import os
+from transform.auth import login_required
 from flask import Blueprint, render_template, request
 from lib.order_transform import order2order
-from config import ORDER_FILE_PATH
 
+ORDER_FILE_PATH = os.path.dirname(os.path.realpath(
+    __file__)) + '\\transform\\static\\files\\order.xlsx'
 bp = Blueprint('order', __name__, url_prefix='/order')
 
+
 @bp.route('/', methods=['GET', 'POST'])
+@login_required
 def order():
     return render_template('order/order.html')
+
 
 @bp.route('/complete', methods=['GET', 'POST'])
 def order_complete():

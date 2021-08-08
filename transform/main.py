@@ -6,6 +6,12 @@ from flask import Blueprint, render_template
 # ex) '/' 대신 '/main' 이라고 선언하면, localhost:5000/ 대신 localhost:5000/main/ 이라고 호출해야함.
 bp = Blueprint('main', __name__, url_prefix='/')
 
+
 @bp.route('/', methods=['GET'])
 def main():
     return render_template('main/main.html')
+
+
+# @bp.route('/master', method=['GET'])
+# def master():
+#     pass

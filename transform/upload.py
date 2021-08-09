@@ -1,17 +1,20 @@
 from flask import Blueprint, render_template, request
 import os
-from lib.brand_Domestic import brand2domestic
+from lib.brand_domestic import brand2domestic
 from lib.brand_SouthEastAsia import brand2SEA
 from lib.brand_china import brand2china
 
-UPLOAD_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/static/files/'
+UPLOAD_FILE_PATH = os.path.dirname(
+    os.path.realpath(__file__)) + '/static/files/'
 bp = Blueprint('upload', __name__, url_prefix='/upload')
 
-@bp.route('/', methods = ['GET', 'POST'])
+
+@bp.route('/', methods=['GET', 'POST'])
 def upload():
     return render_template('upload/upload.html')
 
-@bp.route('/complete', methods = ['GET', 'POST'])
+
+@bp.route('/complete', methods=['GET', 'POST'])
 def upload_complete():
     if request.method == 'POST':
         try:
@@ -24,12 +27,11 @@ def upload_complete():
                 brand2domestic(file).to_excel(path_1)
             if 'SouthEastAsia' in server_list:
                 path_2 = UPLOAD_FILE_PATH + '동남아서버업로드용.xlsx'
-                brand2SEA(file).to_excel(path_2)                
+                brand2SEA(file).to_excel(path_2)
             if 'China' in server_list:
                 path_3 = UPLOAD_FILE_PATH + '중국(위챗)서버업로드용.xlsx'
                 brand2china(file).to_excel(path_3)
 
-
-            return render_template('upload/upload_complete.html', server_list = server_list)
+            return render_template('upload/upload_complete.html', server_list=server_list)
         except:
             return '파일 변환에 실패하였습니다. 다시 시도해주세요.'

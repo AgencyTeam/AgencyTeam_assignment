@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request
 import os
 from lib.brand_domestic import brand2domestic
 
-UPLOAD_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '\\static\\files\\'
+UPLOAD_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/static/files/'
 bp = Blueprint('upload', __name__, url_prefix='/upload')
 
 @bp.route('/', methods = ['GET', 'POST'])

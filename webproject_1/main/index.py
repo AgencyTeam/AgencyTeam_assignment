@@ -8,8 +8,8 @@ import os
 
 app = Flask(__name__)
 
-upload_path = os.path.dirname(os.path.realpath(__file__)) + '\\static\\files\\upload_files\\'
-gen_path = os.path.dirname(os.path.realpath(__file__)) + '\\static\\files\\gen_files\\'
+upload_path = os.path.dirname(os.path.realpath(__file__)) + '/static/files/upload_files/'
+gen_path = os.path.dirname(os.path.realpath(__file__)) + '/static/files/gen_files/'
 
 # file_path에 있는 파일들 삭제하는 함수
 def files_removing(file_path):
@@ -51,18 +51,37 @@ def order_transform():
 
 @app.route('/distribution', methods = ['GET', 'POST'])
 def distribution():
-    pass
-
+    return render_template('distribution.html')
 @app.route('/distribution/complete', methods = ['GET', 'POST'])
 def distribution_transform():
-    pass
+    if request.method == 'POST':
+        # 경로에 파일이 있으면 그 파일들 삭제
+        files_removing(upload_path)
+        files_removing(gen_path)
+        print(upload_path)
+        #print(gen_path)
+        try:
+            if request.method == 'POST':
+                f = request.files['file']
+                form_data = request.form
+                print(gen_path)
+                upload_file = upload_path + secure_filename(f.filename)
+                gen_file = gen_path + '물류파일.xlsx'
+                f.save(upload_file)
+                distributon_from_orderinfo(upload_file, form_data).to_excel(gen_file)
+                # excel2json(gen_file, gen_path + "물류파일.json")
+                
+                return render_template('distribution_complete.html')
+        except:
+            return '파일 변환에 실패하였습니다. 다시 시도해주세요.'
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload():
+    #return render_template('upload.html')
     pass
-
 @app.route('/upload/complete', methods = ['GET', 'POST'])
 def upload_transform():
+    #return render_template('upload_complete.html')
     pass
 
 # @app.route('/complete', methods = ['GET', 'POST'])

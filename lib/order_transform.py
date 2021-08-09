@@ -66,14 +66,6 @@ def generate_df(transformed_order_df, form_data, order_columns):
                 ymd = date.split(' ')
                 tmp.append(ymd[0])
             order_dict["결제일시"] = tmp
-        # elif (column == "customer name"):
-        #     order_dict["주문자성명"], order_dict["수령자 이름"] = data, data
-        # elif (column == "customer phone"):
-        #     order_dict["주문자 전화번호"], order_dict["주문자 휴대폰"], order_dict["수령자 전화번호"], order_dict["수령자 휴대폰"] = data, data, data, data
-        # elif (column == "fixed address"):
-        #     order_dict["주문자 고정주소"], order_dict["수령자 고정주소"] = data, data
-        # elif (column == "detailed address"):
-        #     order_dict["주문자 상세주소"], order_dict["수령자 상세주소"] = data, data
         elif (column == "settle price"):
             data = list(map(int, data))
             order_dict["실판매가"] = list(map(lambda x: x/67*100, data))
@@ -89,6 +81,7 @@ def generate_df(transformed_order_df, form_data, order_columns):
                                      10, map(int, order_dict["발주가"])))
     order_dict["총주문금액"] = order_dict["발주가(최종)"]
 
+    # form 에서 온 데이터들 추가
     for key in form_data:
         if form_data[key] == "":
             continue
@@ -112,8 +105,6 @@ def generate_df(transformed_order_df, form_data, order_columns):
 
 
 def order2order(file_path, form_data):
-    sheet_name = {'발주': '발주파일', '물류': '물류파일', '상품': 'commodity',
-                  '주문[영문]': 'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
     need_columns = ['product model', 'vendor product No.',
                     'product quantity', 'order No.', 'create time', 'settle price']
     order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자 성명', '주문자 전화번호',
@@ -121,8 +112,8 @@ def order2order(file_path, form_data):
                      '수령자 이메일', '수령자 우편번호', '수령자 고정주소', '수령자 상세주소', '주문 메모', '업체 코드', '외부몰 부주문 코드', '환율', 165,
                      'LF CJ운송장', 'SF EXPRESS 운송장', '소비자가', '실판매가', '배송비', '실판매가-배송비', '발주가', '발주가(최종)']
 
-    order_df = excel2df(file_path, sheet_name=sheet_name['주문[영문]'])
-    master_df = excel2df(file_path, sheet_name=sheet_name['마스터'])
+    order_df = excel2df(file_path, sheet_name="주문정보")
+    master_df = excel2df(file_path, sheet_name="마스터파일")
 
     transformed_order_df = df_transform(
         order_df, master_df, need_columns)

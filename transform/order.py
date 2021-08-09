@@ -4,9 +4,8 @@ from flask import Blueprint, render_template, request
 from lib.order_transform import order2order
 
 ORDER_FILE_PATH = os.path.dirname(os.path.realpath(
-    __file__)) + '\\transform\\static\\files\\order.xlsx'
+    __file__)) + '\\static\\files\\order.xlsx'
 bp = Blueprint('order', __name__, url_prefix='/order')
-
 
 @bp.route('/', methods=['GET', 'POST'])
 @login_required

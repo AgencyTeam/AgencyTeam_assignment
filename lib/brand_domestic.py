@@ -16,7 +16,7 @@ def excel2df(file_path):
         return 0
 
 def generate_df(brand_df):
-    # 국내 파일에만 있는 열, 빈칸 만들때 필요
+    # 국내 서버 파일에만 있는 열, 빈칸 만들때 필요
     domestic_file_path = os.getcwd() + "/lib/domestic.xlsx"
     domestic = pd.read_excel(domestic_file_path)
 

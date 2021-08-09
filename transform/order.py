@@ -7,7 +7,6 @@ ORDER_FILE_PATH = os.path.dirname(os.path.realpath(
     __file__)) + '/static/files/발주파일.xlsx'
 bp = Blueprint('order', __name__, url_prefix='/order')
 
-
 @bp.route('/', methods=['GET', 'POST'])
 @login_required
 def order():

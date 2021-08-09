@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>에이전시팀 X 데청캠</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename = 'assets/favicon.ico') }}" />
+  <!-- Bootstrap css -->
+  <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <!-- Bootstrap js -->
+  <script src="{{ url_for('static', filename = 'js/bootstrap.bundle.js') }}"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Responsive navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="/">Agency Team</a>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Page Link
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/">Main</a></li>
+              <li><a class="dropdown-item" href="/order">Order File Transform</a></li>
+              <li><a class="dropdown-item" href="/distribution">Distribution File Transform</a></li>
+              <li><a class="dropdown-item" href="/upload">Upload File Transform</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          {% if g.user %}
+          <li class="nav-item">
+            <a class="nav-link navbar-right" href="{{ url_for('auth.logout') }}">
+              로그아웃
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link navbar-right" href="{{ url_for('auth.login') }}">
+              <img src="{{ url_for('static', filename='img/admin.png') }}" alt="" width="30" height="24"
+                class="d-inline-block align-text-top">
+              관리자 로그인
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page content-->
+  {% block content %}
+  {% endblock %}
+
+  <!-- footer -->
+  <footer class="bg-dark text-center text-white">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      <p class="fst-italic">Developer : 장성태 이성수 신지은 서혜원</p>
+      <p class="fst-italic">© 2021 Copyright : Agency Team x 데이터청년캠퍼스[서울여대]</p>
+    </div>
+  </footer>
+</body>
+
+</html>

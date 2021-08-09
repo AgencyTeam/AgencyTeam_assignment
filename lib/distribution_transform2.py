@@ -20,7 +20,7 @@ def order_info(file_path, sheet_name = None):
 
 #공백, 복붙 임의로 기입
 def distribution_df(order_info_df):
-    New_distribution_df = pd.DataFrame({1122,2212},{'Shipment Reference No.': order_info_df["order No."],
+    New_distribution_df = pd.DataFrame({'Shipment Reference No.': order_info_df["order No."],
                                     'Shipment Reference No.2' : order_info_df["order No."],
                                     'Customer Account No.' : "",
                                     'Company Name' : "LF corp",

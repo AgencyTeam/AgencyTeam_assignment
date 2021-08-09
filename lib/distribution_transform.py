@@ -20,7 +20,7 @@ def order_info(file_path, sheet_name):
 
 
 #주문정보에 있는 data, distribution으로 가져오기
-def distribution_df(order_info_df, distribution_columns):
+def distribution_df(order_info_df,form_data, distribution_columns):
     distribution_dict = dict()
     for column in order_info_df.columns:
         data = order_info_df[column]
@@ -44,7 +44,12 @@ def distribution_df(order_info_df, distribution_columns):
         elif (column == "vendor remark"):
             distribution_dict["Receiver Postal Code"] = data
         
-    print(distribution_dict)
+    for key in form_data:
+        if form_data[key] == "":
+            continue
+        else:
+            distribution_dict[key] = [form_data[key]] * len(order_info_df)
+    
     new_df = pd.DataFrame(distribution_dict)
 
 
@@ -68,7 +73,7 @@ def distribution_from_orderinfo(file_path,form_data):
     # sheet_name = {'발주':'발주파일', '물류':'물류파일', '상품':'commodity', '주문[영문]':'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
     # need_columns = ['order No.', 'customer name', 'customer phone', 'detailed address', 'city', 'province', 'certificates NO.', 'vedor remark']
     distribution_columns = ['Shipment Reference No.', 'Shipment Reference No.2', 'Customer Account No.', 'Company Name', 'Contact Name', 'Tel', 
-    'Address', 'City', 'Province', 'Country/Region', 'Email', 'Postal Code', 'Receiver Customer', 'Account No.', "Receiver's Tax ID No.", 
+    'Address', 'City', 'Province', 'Country/Region', 'Email', 'Postal Code', 'Receiver Customer Account No.', "Receiver's Tax ID No.", 
     'Receiver Company Name', 'Receiver Contact Name', 'Receiver  Chinese Name', 'Receiver Tel', 'Receiver Address', 'Receiver City', 'Receiver Province', 
     'Receiver Email', 'Receiver Country/Region', 'Receiver Credentials Type', 'Receiver Credentials No', 'Receiver Postal Code', 'Currency', 'Shipment Type',
     'Add Service1', 'Add Service Account1', 'Add Service Amount1', 'Add Service2', 'Add Service Account2', 'Add Service Amount2', 'Total Package', 'Self Pickup',
@@ -79,8 +84,5 @@ def distribution_from_orderinfo(file_path,form_data):
     
     
     order_info_df = order_info(file_path, sheet_name = "secoo주문영문") 
-    New_distribution_df = distribution_df(order_info_df, distribution_columns)
-    print(New_distribution_df)
-    #New_distribution_df = New_distribution_df.drop([New_distribution_df.columns[0]])
-    print(type(New_distribution_df))
+    New_distribution_df = distribution_df(order_info_df,form_data, distribution_columns)
     return New_distribution_df

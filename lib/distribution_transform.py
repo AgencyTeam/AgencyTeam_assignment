@@ -19,34 +19,34 @@ def order_info(file_path, sheet_name):
         return 0
 
 
-
-#공백, 복붙 임의로 기입
+#주문정보에 있는 data, distribution으로 가져오기
 def distribution_df(order_info_df, distribution_columns):
     distribution_dict = dict()
-
     for column in order_info_df.columns:
         data = order_info_df[column]
         if (column == "order No."):
-            distribution_dict["Shipment Reference No."] == data
-            distribution_dict["Shipment Reference No.2"] == data
+            distribution_dict["Shipment Reference No."] = data
+            distribution_dict["Shipment Reference No.2"] = data
         elif (column == "customer name"):
-            distribution_dict["Receiver Contact Name"] == data
+            distribution_dict["Receiver Contact Name"] = data
         elif (column == "customer phone"):
-            distribution_dict["Receiver Tel"] == data
+            distribution_dict["Receiver Tel"] = data
         elif (column == "detailed address"):
-            distribution_dict["Receiver Address"] == data
+            distribution_dict["Receiver Address"] = data
         elif (column == "city"):
-            distribution_dict["Receiver City"] == data
+            distribution_dict["Receiver City"] = data
         elif (column == "province"):
-            distribution_dict["Receiver Province"] == data
+            distribution_dict["Receiver Province"] = data
         elif (column == "customer phone"):
-            distribution_dict["Receiver Tel"] == data
+            distribution_dict["Receiver Tel"] = data
         elif (column == "certificates NO."):
-            distribution_dict["Receiver Credentials No"] == data
+            distribution_dict["Receiver Credentials No"] = data
         elif (column == "vendor remark"):
-            distribution_dict["Receiver Postal Code"] == data
+            distribution_dict["Receiver Postal Code"] = data
         
+    print(distribution_dict)
     new_df = pd.DataFrame(distribution_dict)
+
 
 # 얻지 못하는 값들은 빈 값 처리
     for column in distribution_columns:
@@ -64,7 +64,7 @@ def distribution_df(order_info_df, distribution_columns):
 
 
 
-def distribution_from_orderinfo(file_path):
+def distribution_from_orderinfo(file_path,form_data):
     # sheet_name = {'발주':'발주파일', '물류':'물류파일', '상품':'commodity', '주문[영문]':'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
     # need_columns = ['order No.', 'customer name', 'customer phone', 'detailed address', 'city', 'province', 'certificates NO.', 'vedor remark']
     distribution_columns = ['Shipment Reference No.', 'Shipment Reference No.2', 'Customer Account No.', 'Company Name', 'Contact Name', 'Tel', 
@@ -80,5 +80,7 @@ def distribution_from_orderinfo(file_path):
     
     order_info_df = order_info(file_path, sheet_name = "secoo주문영문") 
     New_distribution_df = distribution_df(order_info_df, distribution_columns)
-    print(New_distribution_df.head(5))
+    print(New_distribution_df)
+    #New_distribution_df = New_distribution_df.drop([New_distribution_df.columns[0]])
+    print(type(New_distribution_df))
     return New_distribution_df

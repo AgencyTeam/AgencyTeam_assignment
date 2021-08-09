@@ -2,8 +2,7 @@ from flask import Blueprint, render_template, request
 import os
 from lib.brand_domestic import brand2domestic
 
-UPLOAD_FILE_PATH = os.path.dirname(os.path.realpath(
-    __file__)) + '\\static\\files\\'
+UPLOAD_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '\\static\\files\\'
 bp = Blueprint('upload', __name__, url_prefix='/upload')
 
 @bp.route('/', methods = ['GET', 'POST'])
@@ -29,6 +28,6 @@ def upload_complete():
                 brand2domestic(file).to_excel(path_3)
 
 
-                return render_template('upload/upload_complete.html', server_list = server_list)
+            return render_template('upload/upload_complete.html', server_list = server_list)
         except:
             return '파일 변환에 실패하였습니다. 다시 시도해주세요.'

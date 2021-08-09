@@ -64,7 +64,7 @@ def distribution_df(order_info_df, distribution_columns):
 
 
 
-def distributon_from_orderinfo(file_path):
+def distribution_from_orderinfo(file_path):
     # sheet_name = {'발주':'발주파일', '물류':'물류파일', '상품':'commodity', '주문[영문]':'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
     # need_columns = ['order No.', 'customer name', 'customer phone', 'detailed address', 'city', 'province', 'certificates NO.', 'vedor remark']
     distribution_columns = ['Shipment Reference No.', 'Shipment Reference No.2', 'Customer Account No.', 'Company Name', 'Contact Name', 'Tel', 

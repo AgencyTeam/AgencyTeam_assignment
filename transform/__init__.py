@@ -4,7 +4,8 @@ from . import main
 from . import order
 from . import db
 from . import auth
-from . import distribution
+from . import upload
+
 
 def create_app():
     # instance_relative_config=True -> app에게 설정파일은 instance 폴더에 있다. (설정값, DB파일 등)
@@ -27,8 +28,8 @@ def create_app():
 
     app.register_blueprint(main.bp)
     app.register_blueprint(order.bp)
-    app.register_blueprint(distribution.bp)
-    # app.register_blueprint(upload.bp)
+    # app.register_blueprint(distribution.bp)
+    app.register_blueprint(upload.bp)
     app.register_blueprint(auth.bp)
 
     db.init_app(app)

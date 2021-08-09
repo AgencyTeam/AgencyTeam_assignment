@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 import os
 from lib.brand_Domestic import brand2domestic
 from lib.brand_SouthEastAsia import brand2SEA
+from lib.brand_china import brand2china
 
 UPLOAD_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/static/files/'
 bp = Blueprint('upload', __name__, url_prefix='/upload')
@@ -26,7 +27,7 @@ def upload_complete():
                 brand2SEA(file).to_excel(path_2)                
             if 'China' in server_list:
                 path_3 = UPLOAD_FILE_PATH + '중국(위챗)서버업로드용.xlsx'
-                brand2domestic(file).to_excel(path_3)
+                brand2china(file).to_excel(path_3)
 
 
             return render_template('upload/upload_complete.html', server_list = server_list)

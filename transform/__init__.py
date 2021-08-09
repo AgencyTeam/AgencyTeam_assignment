@@ -5,6 +5,7 @@ from . import order
 from . import db
 from . import auth
 from . import upload
+from . import distribution
 
 
 def create_app():
@@ -28,7 +29,7 @@ def create_app():
 
     app.register_blueprint(main.bp)
     app.register_blueprint(order.bp)
-    # app.register_blueprint(distribution.bp)
+    app.register_blueprint(distribution.bp)
     app.register_blueprint(upload.bp)
     app.register_blueprint(auth.bp)
 

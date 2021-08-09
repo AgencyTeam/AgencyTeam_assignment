@@ -17,7 +17,7 @@ def excel2df(file_path):
 
 def generate_df(brand_df):
     # 동남아 서버 파일에만 있는 열, 빈칸 만들때 필요
-    sea_file_path = os.getcwd() + "/lib/SouthEastAsia.xlsx"
+    sea_file_path = os.getcwd() + "/tmp/SouthEastAsia.xlsx"
     sea = pd.read_excel(sea_file_path, sheet_name="Template")
 
     # 빈 데이터프레임 선언

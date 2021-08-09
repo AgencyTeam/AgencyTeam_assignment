@@ -20,7 +20,7 @@ def order_info(file_path, sheet_name = None):
 
 #공백, 복붙 임의로 기입
 def distribution_df(order_info_df):
-    New_distribution_df = pd.DataFrame({'Shipment Reference No.': order_info_df["order No."],
+    New_distribution_df = pd.DataFrame({1122,2212},{'Shipment Reference No.': order_info_df["order No."],
                                     'Shipment Reference No.2' : order_info_df["order No."],
                                     'Customer Account No.' : "",
                                     'Company Name' : "LF corp",
@@ -89,8 +89,9 @@ def distribution_df(order_info_df):
 
 
 #주문정보의 sheetname이 "secoo주문영문"이어야함
-def distributon_from_orderinfo(file_path):
+def distribution_from_orderinfo(file_path,form_data):
     order_info_df = order_info(file_path, sheet_name = "secoo주문영문") 
     New_distribution_df = distribution_df(order_info_df)
-
+    print(New_distribution_df.head())
     return New_distribution_df
+

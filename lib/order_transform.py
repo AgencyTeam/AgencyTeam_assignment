@@ -21,7 +21,7 @@ def excel2df(file_path, sheet_name=None):
 # 주문정보 df 정제
 
 
-def df_transform(order_df, master_df, form_data, need_columns):
+def df_transform(order_df, master_df, need_columns):
     for column in order_df:
         if (column in need_columns):
             continue
@@ -42,17 +42,11 @@ def df_transform(order_df, master_df, form_data, need_columns):
     order_df["소비자가"] = customer_price
     order_df["배송비"] = delivery_price
 
-    for key in form_data:
-        if form_data[key] == "":
-            continue
-        else:
-            order_df[key] = [form_data[key]] * len(order_df)
-
     return order_df
 
 
 # 정제된 발주파일 df 생성
-def generate_df(transformed_order_df, order_columns):
+def generate_df(transformed_order_df, form_data, order_columns):
     order_dict = dict()
 
     for column in transformed_order_df.columns:
@@ -95,6 +89,12 @@ def generate_df(transformed_order_df, order_columns):
                                      10, map(int, order_dict["발주가"])))
     order_dict["총주문금액"] = order_dict["발주가(최종)"]
 
+    for key in form_data:
+        if form_data[key] == "":
+            continue
+        else:
+            order_dict[key] = [form_data[key]] * len(transformed_order_df)
+
     # 만든 dict -> df로 변환
     new_df = pd.DataFrame(order_dict)
 
@@ -113,10 +113,10 @@ def generate_df(transformed_order_df, order_columns):
 
 def order2order(file_path, form_data):
     sheet_name = {'발주': '발주파일', '물류': '물류파일', '상품': 'commodity',
-                  '주문': 'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
+                  '주문[영문]': 'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
     need_columns = ['product model', 'vendor product No.',
                     'product quantity', 'order No.', 'create time', 'settle price']
-    order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자성명', '주문자 전화번호',
+    order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자 성명', '주문자 전화번호',
                      '주문자 휴대폰', '주문자 이메일', '주문자 우편번호', '주문자 고정주소', '주문자 상세주소', '수령자 이름', '수령자 전화번호', '수령자 휴대폰',
                      '수령자 이메일', '수령자 우편번호', '수령자 고정주소', '수령자 상세주소', '주문 메모', '업체 코드', '외부몰 부주문 코드', '환율', 165,
                      'LF CJ운송장', 'SF EXPRESS 운송장', '소비자가', '실판매가', '배송비', '실판매가-배송비', '발주가', '발주가(최종)']
@@ -125,8 +125,8 @@ def order2order(file_path, form_data):
     master_df = excel2df(file_path, sheet_name=sheet_name['마스터'])
 
     transformed_order_df = df_transform(
-        order_df, master_df, form_data, need_columns)
+        order_df, master_df, need_columns)
 
-    new_order_df = generate_df(transformed_order_df, order_columns)
+    new_order_df = generate_df(transformed_order_df, form_data, order_columns)
 
     return new_order_df

@@ -14,4 +14,4 @@ def main():
 
 # @bp.route('/master', method=['GET'])
 # def master():
-#     pass
+#     return render_template('main/master.html')

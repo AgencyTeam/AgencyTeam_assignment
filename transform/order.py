@@ -1,6 +1,9 @@
 from transform.auth import login_required
 from flask import Blueprint, render_template, request
 from lib.order_transform import make_excel
+from pathlib import Path
+import datetime as dt
+from instance.config import UPLOAD_DIR_PATH
 
 bp = Blueprint('order', __name__, url_prefix='/order')
 
@@ -8,19 +11,20 @@ bp = Blueprint('order', __name__, url_prefix='/order')
 @bp.route('/', methods=['GET', 'POST'])
 @login_required
 def order():
-    return render_template('order/order.html')
+    x = dt.datetime.now()
+    file_name = f"{x.year}{x.month}{x.day}{x.hour}{x.minute}{x.second}{x.microsecond}"
+    return render_template('order/order.html', file_name=file_name)
 
 
 @bp.route('/complete', methods=['GET', 'POST'])
 def order_complete():
     if request.method == 'POST':
-        try:
-            # form 데이터 받기
-            file = request.files['file']
-            form_data = request.form
-            # 받은 데이터를 엑셀로 변환하여 저장하기
-            make_excel(file, form_data)
+        # form 데이터 받기
+        file = request.files['file']
+        form_data = request.form
+        file_name = request.args.get('name', None)
+        upload_path = f"{UPLOAD_DIR_PATH}/{file_name}.xlsx"
+        # 받은 데이터를 엑셀로 변환하여 저장하기
+        make_excel(file, form_data, upload_path)
 
-            return render_template('order/order_complete.html')
-        except:
-            return '파일 변환에 실패하였습니다. 다시 시도해주세요.'
+        return render_template('order/order_complete.html', filename=f"{file_name}.xlsx")

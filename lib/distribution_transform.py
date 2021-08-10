@@ -9,10 +9,10 @@ FORM_FILE_PATH = ROOT_PATH + '/transform/static/excel_form/물류form.xlsx'
 
 ##주문정보->물류파일 변환
 #파일 불러오기
-def order_info(file_path, sheet_name):
+def order_info(file_path, sheet_name=None):
     if sheet_name:
         try:
-            df = pd.read_excel(file_path, sheet_name='secoo주문영문')
+            df = pd.read_excel(file_path, sheet_name)
             return df
         except:
             print("엑셀파일을 불러오는데 실패했습니다.")

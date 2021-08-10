@@ -3,9 +3,8 @@ import os
 from lib.brand_domestic import brand2domestic
 from lib.brand_SouthEastAsia import brand2SEA
 from lib.brand_china import brand2china
+from path import UPLOAD_DIR_PATH
 
-UPLOAD_FILE_PATH = os.path.dirname(
-    os.path.realpath(__file__)) + '/static/files/'
 bp = Blueprint('upload', __name__, url_prefix='/upload')
 
 
@@ -23,13 +22,13 @@ def upload_complete():
             server_list = request.form.getlist('server')
 
             if 'Domestic' in server_list:
-                path_1 = UPLOAD_FILE_PATH + '국내서버업로드용.xlsx'
+                path_1 = UPLOAD_DIR_PATH + '국내서버업로드용.xlsx'
                 brand2domestic(file).to_excel(path_1)
             if 'SouthEastAsia' in server_list:
-                path_2 = UPLOAD_FILE_PATH + '동남아서버업로드용.xlsx'
+                path_2 = UPLOAD_DIR_PATH + '동남아서버업로드용.xlsx'
                 brand2SEA(file).to_excel(path_2)
             if 'China' in server_list:
-                path_3 = UPLOAD_FILE_PATH + '중국(위챗)서버업로드용.xlsx'
+                path_3 = UPLOAD_DIR_PATH + '중국(위챗)서버업로드용.xlsx'
                 brand2china(file).to_excel(path_3)
 
             return render_template('upload/upload_complete.html', server_list=server_list)

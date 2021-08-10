@@ -15,7 +15,7 @@ def generate_df(brand_df):
     china_file_path = os.getcwd() + "/tmp/china.xlsx"
     # china = pd.read_excel(china_file_path)
     wb = load_workbook(filename=china_file_path)
-    china = wb["INFORM"]
+    china = wb["server"]
     china_columns = china['B6':'O6'].value
     print(china_columns)
 

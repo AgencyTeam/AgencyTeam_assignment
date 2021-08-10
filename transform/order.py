@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request
 from lib.order_transform import make_excel
 from pathlib import Path
 import datetime as dt
-from instance.config import UPLOAD_DIR_PATH
+from path import UPLOAD_DIR_PATH
 
 bp = Blueprint('order', __name__, url_prefix='/order')
 

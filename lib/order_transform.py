@@ -1,11 +1,6 @@
-from pathlib import Path
 from openpyxl import load_workbook
 import pandas as pd
-import os
-
-ROOT_PATH = str(Path(os.path.realpath(__file__)).parent.parent)
-ORDER_FILE_PATH = ROOT_PATH + '/transform/static/files/발주파일.xlsx'
-FORM_FILE_PATH = ROOT_PATH + '/transform/static/excel_form/발주form.xlsx'
+from path import ORDER_EXCEL_FORM
 
 
 # excel file -> df
@@ -126,7 +121,7 @@ def df2excel(df, form_path, new_path):
     wb.save(new_path)
 
 
-def make_excel(file, form_data):
+def make_excel(file, form_data, upload_path):
     need_columns = ['product model', 'vendor product No.',
                     'product quantity', 'order No.', 'create time', 'settle price']
     order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자 성명', '주문자 전화번호',
@@ -139,5 +134,6 @@ def make_excel(file, form_data):
 
     transformed_order_df = df_transform(order_df, master_df, need_columns)
 
-    new_order_df = generate_df(transformed_order_df, form_data, order_columns).sort_values(by=['외부몰주문번호'], axis=0)
-    df2excel(new_order_df, FORM_FILE_PATH, ORDER_FILE_PATH)
+    order = generate_df(transformed_order_df, form_data, order_columns)
+
+    df2excel(order, ORDER_EXCEL_FORM, upload_path)

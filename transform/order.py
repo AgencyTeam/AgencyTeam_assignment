@@ -1,11 +1,9 @@
-import os
 from transform.auth import login_required
 from flask import Blueprint, render_template, request
-from lib.order_transform import order2order
+from lib.order_transform import make_excel
 
-ORDER_FILE_PATH = os.path.dirname(os.path.realpath(
-    __file__)) + '/static/files/발주파일.xlsx'
 bp = Blueprint('order', __name__, url_prefix='/order')
+
 
 @bp.route('/', methods=['GET', 'POST'])
 @login_required
@@ -21,8 +19,7 @@ def order_complete():
             file = request.files['file']
             form_data = request.form
             # 받은 데이터를 엑셀로 변환하여 저장하기
-            order_df = order2order(file, form_data)
-            order_df.to_excel(ORDER_FILE_PATH)
+            make_excel(file, form_data)
 
             return render_template('order/order_complete.html')
         except:

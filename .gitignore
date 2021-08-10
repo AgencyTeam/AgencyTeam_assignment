@@ -6,3 +6,9 @@ venv/
 .venv/
 
 instance/
+
+*.db
+*.sqlite
+*.pyc
+
+transform/static/files/*.xlsx

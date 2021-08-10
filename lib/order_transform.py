@@ -1,8 +1,14 @@
+from pathlib import Path
+from openpyxl import load_workbook
 import pandas as pd
+import os
+
+ROOT_PATH = str(Path(os.path.realpath(__file__)).parent.parent)
+ORDER_FILE_PATH = ROOT_PATH + '/transform/static/files/발주파일.xlsx'
+FORM_FILE_PATH = ROOT_PATH + '/transform/static/excel_form/발주form.xlsx'
+
 
 # excel file -> df
-
-
 def excel2df(file_path, sheet_name=None):
     if sheet_name:
         try:
@@ -18,9 +24,8 @@ def excel2df(file_path, sheet_name=None):
         print("csv파일을 불러오는데 실패했습니다.")
         return 0
 
+
 # 주문정보 df 정제
-
-
 def df_transform(order_df, master_df, need_columns):
     for column in order_df:
         if (column in need_columns):
@@ -104,7 +109,24 @@ def generate_df(transformed_order_df, form_data, order_columns):
     return new_df
 
 
-def order2order(file_path, form_data):
+def df2excel(df, form_path, new_path):
+    wb = load_workbook(form_path)
+    ws = wb['발주파일']
+
+    # 각 column의 값 추가
+    col_cnt = 1
+    for col in df.columns:
+        row_cnt = 3
+        for val in df[col]:
+            ws.cell(row=row_cnt, column=col_cnt).value = val
+            row_cnt += 1
+        col_cnt += 1
+
+    # save
+    wb.save(new_path)
+
+
+def make_excel(file, form_data):
     need_columns = ['product model', 'vendor product No.',
                     'product quantity', 'order No.', 'create time', 'settle price']
     order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자 성명', '주문자 전화번호',
@@ -112,12 +134,11 @@ def order2order(file_path, form_data):
                      '수령자 이메일', '수령자 우편번호', '수령자 고정주소', '수령자 상세주소', '주문 메모', '업체 코드', '외부몰 부주문 코드', '환율', 165,
                      'LF CJ운송장', 'SF EXPRESS 운송장', '소비자가', '실판매가', '배송비', '실판매가-배송비', '발주가', '발주가(최종)']
 
-    order_df = excel2df(file_path, sheet_name="주문정보")
-    master_df = excel2df(file_path, sheet_name="마스터파일")
+    order_df = excel2df(file, sheet_name="주문정보")
+    master_df = excel2df(file, sheet_name="마스터파일")
 
-    transformed_order_df = df_transform(
-        order_df, master_df, need_columns)
+    transformed_order_df = df_transform(order_df, master_df, need_columns)
 
-    new_order_df = generate_df(transformed_order_df, form_data, order_columns)
-
-    return new_order_df
+    new_order_df = generate_df(
+        transformed_order_df, form_data, order_columns).sort_values(by=['외부몰주문번호'], axis=0)
+    df2excel(new_order_df, FORM_FILE_PATH, ORDER_FILE_PATH)

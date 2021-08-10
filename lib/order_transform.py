@@ -139,6 +139,5 @@ def make_excel(file, form_data):
 
     transformed_order_df = df_transform(order_df, master_df, need_columns)
 
-    new_order_df = generate_df(
-        transformed_order_df, form_data, order_columns).sort_values(by=['외부몰주문번호'], axis=0)
+    new_order_df = generate_df(transformed_order_df, form_data, order_columns).sort_values(by=['외부몰주문번호'], axis=0)
     df2excel(new_order_df, FORM_FILE_PATH, ORDER_FILE_PATH)

@@ -1,5 +1,6 @@
 import os
-from flask import Flask
+from flask import Flask, send_from_directory
+from path import UPLOAD_DIR_PATH
 from . import main
 from . import order
 from . import db
@@ -19,6 +20,7 @@ def create_app():
         # SQlite DB 파일의 경로.
         # instance 밑에 transform.sqlite 라는 이름.
         DATABASE=os.path.join(app.instance_path, 'transform.sqlite'),
+        UPLOAD_FOLDER=UPLOAD_DIR_PATH,
     )
 
     # instance 폴더가 없으면 생성
@@ -32,6 +34,10 @@ def create_app():
     app.register_blueprint(distribution.bp)
     app.register_blueprint(upload.bp)
     app.register_blueprint(auth.bp)
+
+    @app.route('/upload_files/<path:filename>')
+    def download(filename):
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
     db.init_app(app)
 

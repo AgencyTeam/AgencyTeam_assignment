@@ -12,3 +12,4 @@ instance/
 *.pyc
 
 transform/static/files/*.xlsx
+upload_files/*.xlsx

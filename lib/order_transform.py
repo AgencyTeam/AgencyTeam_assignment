@@ -2,7 +2,10 @@ from pathlib import Path
 from openpyxl import load_workbook
 import pandas as pd
 import os
-from instance.config import ORDER_EXCEL_FORM
+
+ROOT_PATH = str(Path(os.path.realpath(__file__)).parent.parent)
+ORDER_FILE_PATH = ROOT_PATH + '/transform/static/files/발주파일.xlsx'
+FORM_FILE_PATH = ROOT_PATH + '/transform/static/excel_form/발주form.xlsx'
 
 
 # excel file -> df
@@ -106,15 +109,15 @@ def generate_df(transformed_order_df, form_data, order_columns):
     return new_df
 
 
-def order2excel(order, form_path, new_path):
+def df2excel(df, form_path, new_path):
     wb = load_workbook(form_path)
     ws = wb['발주파일']
 
     # 각 column의 값 추가
     col_cnt = 1
-    for col in order.columns:
+    for col in df.columns:
         row_cnt = 3
-        for val in order[col]:
+        for val in df[col]:
             ws.cell(row=row_cnt, column=col_cnt).value = val
             row_cnt += 1
         col_cnt += 1
@@ -123,7 +126,7 @@ def order2excel(order, form_path, new_path):
     wb.save(new_path)
 
 
-def make_excel(file, form_data, upload_path):
+def make_excel(file, form_data):
     need_columns = ['product model', 'vendor product No.',
                     'product quantity', 'order No.', 'create time', 'settle price']
     order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자 성명', '주문자 전화번호',
@@ -136,6 +139,5 @@ def make_excel(file, form_data, upload_path):
 
     transformed_order_df = df_transform(order_df, master_df, need_columns)
 
-    order = generate_df(transformed_order_df, form_data, order_columns)
-
-    order2excel(order, ORDER_EXCEL_FORM, upload_path)
+    new_order_df = generate_df(transformed_order_df, form_data, order_columns).sort_values(by=['외부몰주문번호'], axis=0)
+    df2excel(new_order_df, FORM_FILE_PATH, ORDER_FILE_PATH)

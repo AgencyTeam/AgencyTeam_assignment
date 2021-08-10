@@ -1,9 +1,6 @@
-from logging import FileHandler
 import os
 from flask import Flask, send_from_directory
-from werkzeug import Request
-from instance.config import UPLOAD_DIR_PATH
-from pathlib import Path
+from path import UPLOAD_DIR_PATH
 from . import main
 from . import order
 from . import db

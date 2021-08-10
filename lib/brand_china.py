@@ -29,7 +29,7 @@ def generate_df(brand_df):
 
     # 브랜드에서 한글로 제품명 제공한경우, 영문으로 바꿔야함
     # data["상품명(영문 or 중문)"] = brand["상품명"]
-    data["정상 공급가(vat 포함)"] = brand["최초소비자가"]
+    data["정상 공급가 (vat 포함)"] = brand["최초소비자가"]
     data["색상(영문)"] = brand["색상"]
     data["재고수량"] = brand["총재고수량"]
     data["원산지(제조국)(영문)"] = brand["원산지"] + "/Korea"

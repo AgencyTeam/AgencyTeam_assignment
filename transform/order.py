@@ -9,21 +9,22 @@ bp = Blueprint('order', __name__, url_prefix='/order')
 
 
 @bp.route('/', methods=['GET', 'POST'])
-@login_required
 def order():
-    x = dt.datetime.now()
-    file_name = f"{x.year}{x.month}{x.day}{x.hour}{x.minute}{x.second}{x.microsecond}"
-    return render_template('order/order.html', file_name=file_name)
+    return render_template('order/order.html')
 
 
 @bp.route('/complete', methods=['GET', 'POST'])
 def order_complete():
     if request.method == 'POST':
+        # 파일 이름 생성
+        x = dt.datetime.now()
+        file_name = f"{x.year}{x.month}{x.day}{x.hour}{x.minute}{x.second}{x.microsecond}"
+
         # form 데이터 받기
         file = request.files['file']
         form_data = request.form
-        file_name = request.args.get('name', None)
         upload_path = f"{UPLOAD_DIR_PATH}/{file_name}.xlsx"
+
         # 받은 데이터를 엑셀로 변환하여 저장하기
         make_excel(file, form_data, upload_path)
 

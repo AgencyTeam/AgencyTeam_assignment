@@ -1,4 +1,11 @@
 import pandas as pd
+from pathlib import Path
+from openpyxl import load_workbook
+import os
+
+ROOT_PATH = str(Path(os.path.realpath(__file__)).parent.parent)
+DISTRIBUTION_FILE_PATH = ROOT_PATH + '/transform/static/files/distribution.xlsx'
+FORM_FILE_PATH = ROOT_PATH + '/transform/static/excel_form/물류form.xlsx'
 
 ##주문정보->물류파일 변환
 #파일 불러오기
@@ -65,8 +72,20 @@ def distribution_df(order_info_df,form_data, distribution_columns):
 
     return New_distribution_df
 
+def append_value(df, form_path, new_path):
+    wb = load_workbook(form_path)
+    ws = wb['물류파일']
 
-
+    # 각 column 값 추가
+    col_cnt = 1
+    for col in df.columns:
+        row_cnt = 4
+        for val in df[col]:
+            ws.cell(row=row_cnt, column=col_cnt).value = val
+            row_cnt += 1
+        col_cnt += 1
+    # save
+    wb.save(new_path)
 
 
 def distribution_from_orderinfo(file_path,form_data):
@@ -83,6 +102,8 @@ def distribution_from_orderinfo(file_path,form_data):
     'Formal Customs Declaration For Import']
     
     
-    order_info_df = order_info(file_path, sheet_name = "secoo주문영문") 
+    order_info_df = order_info(file_path, sheet_name = "주문정보") 
+
     New_distribution_df = distribution_df(order_info_df,form_data, distribution_columns)
-    return New_distribution_df
+    append_value(New_distribution_df, FORM_FILE_PATH, DISTRIBUTION_FILE_PATH)
+    

@@ -35,6 +35,7 @@ def generate_df(brand,order_columns):
         else:
             data[column] = ""
 
+    data = data[order_columns]
     return data
 
 def df2excel(df, form_path, new_path):

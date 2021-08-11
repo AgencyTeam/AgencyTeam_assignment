@@ -18,7 +18,7 @@ ENV FLASK_APP transform
 ENV FLASK_ENV development
 
 # DB 설정
-RUN flask db-init
+RUN flask init-db
 
 # entrypoint
 ENTRYPOINT ["flask"]

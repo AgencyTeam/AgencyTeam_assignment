@@ -13,3 +13,5 @@ instance/
 
 transform/static/files/*.xlsx
 upload_files/*.xlsx
+
+.DS_Store

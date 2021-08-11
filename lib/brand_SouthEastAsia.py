@@ -12,7 +12,7 @@ def excel2df(file_path):
         return 0
 
 
-def generate_df(brand,order_columns):
+def generate_df(brand,order_columns,jpg_list):
     # 빈 데이터프레임 선언
     data = pd.DataFrame()
 
@@ -25,6 +25,8 @@ def generate_df(brand,order_columns):
     data["Weight"] = brand["무게"].str[0:-1]
     data["Weight"] = pd.to_numeric(data["Weight"])/1000
     data["Weight"] = data["Weight"].round(2)
+    # data["이미지"] = brand["상품코드"].apply(lambda x : [name for name in jpg_list if x in name])
+    
     # 미입력시 기본값 적용되는 컬럼들.
 
 
@@ -55,7 +57,7 @@ def df2excel(df, form_path, new_path):
     wb.save(new_path)
 
 
-def brand2SEA(file_path,upload_path):
+def brand2SEA(file_path,upload_path,jpg_list):
     order_columns = ['Category','Product Name','Product Description','Maximum Purchase Quantity','Maximum Purchase Quantity - Start Date'
                     ,'Maximum Purchase Quantity - Time Period (in Days)','Maximum Purchase Quantity - End Date','Parent SKU','Variation Integration No.'
                     ,'Variation Name1','Option for Variation 1','Image per Variation','Variation Name2','Option for Variation 2','Price','Stock'
@@ -63,5 +65,6 @@ def brand2SEA(file_path,upload_path):
                     ,'Weight','Length','Width','Height','Standard Express - Korea','Pre-order DTS']
 
     brand_df = excel2df(file_path)
-    sea_df = generate_df(brand_df,order_columns)
+    del brand_df["이미지"]
+    sea_df = generate_df(brand_df,order_columns,jpg_list)
     df2excel(sea_df,UPLOAD_SEA_FORM,upload_path)

@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 from path import UPLOAD_SEA_FORM
 from openpyxl import load_workbook 
 
@@ -11,20 +10,12 @@ def excel2df(file_path):
     except:
         print("엑셀파일을 불러오는데 실패했습니다.")
         return 0
-    try:
-        df = pd.read_csv(file_path)
-        return df
-    except:
-        print("csv파일을 불러오는데 실패했습니다.")
-        return 0
 
 
-def generate_df(brand_df,order_columns):
+def generate_df(brand,order_columns):
     # 빈 데이터프레임 선언
     data = pd.DataFrame()
 
-    # 브랜드 파일
-    brand = brand_df
     # 동남아 서버용 형식에 맞게 변환 / 정확해보인것들 일부만 해봄.
     data["Product Name"] = brand["상품명"].str[0:255]
     # data["Product Description"] = brand[""]
@@ -58,7 +49,6 @@ def df2excel(df, form_path, new_path):
             row_cnt += 1
         col_cnt += 1
 
-    # save
     wb.save(new_path)
 
 

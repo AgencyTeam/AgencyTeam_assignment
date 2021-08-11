@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 from path import UPLOAD_CHINA_FORM
 from openpyxl import load_workbook
 
@@ -11,12 +10,10 @@ def excel2df(file_path):
         print("엑셀파일을 불러오는데 실패했습니다.")
         return 0
 
-def generate_df(brand_df,order_columns):
+def generate_df(brand,order_columns):
     # 빈 데이터프레임 선언
     data = pd.DataFrame()
 
-    #브랜드 파일
-    brand = brand_df
     # 중국 서버용 형식에 맞게 변환 / 정확해보인것들 일부만 해봄.
     data["구분(품번)"] = brand["상품코드"]
 
@@ -42,7 +39,7 @@ def generate_df(brand_df,order_columns):
 
 def df2excel(df, form_path, new_path):
     wb = load_workbook(form_path)
-    ws = wb['INFORM']
+    ws = wb['IMFORM']
 
     # 각 column의 값 추가
     col_cnt = 1
@@ -53,7 +50,6 @@ def df2excel(df, form_path, new_path):
             row_cnt += 1
         col_cnt += 1
 
-    # save
     wb.save(new_path)
 
 def brand2china(file_path,upload_path):

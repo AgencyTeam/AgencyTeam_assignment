@@ -23,12 +23,30 @@ def generate_df(brand,order_columns):
     data["판매가"] = brand["최초소비자가"]
     data["무게"] = brand["무게"]
     data["상품 상세정보"] = brand["상품고시정보_HTML"]
-    data["미성년자 구매"] = "Y"
     data["원산지"] = brand["원산지"]
     data["제조사"] = brand["제조원"].str.strip()
     data["브랜드"] = brand["브랜드"].str.strip()
+    # 미입력시 기본값 적용되는 컬럼들.
+    data["상품상태"] = "신상품"
+    data["세금"] = "과세상품"
+    data["미성년자 구매"] = "Y"
+    data["묶음배송 가능"] = "Y"
+    data["별도설치비"] = "N"
+    data["지역별 배송비 사용 여부"] = "A"
+    data["옵션형태"] = "조합형"
+    data["재고소진후주문가능여부"] = "N"
+    data["네이버/다음 쇼핑 노출용 상품명"] = brand["상품명"].str[0:100]
+    data["주문제작상품"] = "N"
+    data["병행수입"] = "N"
+    data["해외구매대행"] = "N"
+    data["판매방식"] = "소매"
+    data["다음 쇼핑하우 노출 설정"] = "Y"
+    data["네이버 쇼핑 노출 설정"] = "Y"
+    data["네이버 페이 구매가능 설정"] = "Y"
+    data["Facebook 다이내믹 광고 설정"] = "Y"
 
-    # 정보가 없는 컬럼 빈칸 처리
+
+    # 참조정보가 없는 컬럼 빈칸 처리
     for column in order_columns:
         if (column in data.columns):
             continue

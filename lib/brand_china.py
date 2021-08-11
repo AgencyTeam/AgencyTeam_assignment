@@ -25,10 +25,10 @@ def generate_df(brand,order_columns):
     data["원산지(제조국)(영문)"] = brand["원산지"] + "/Korea"
     data["세탁방법"] = brand["세탁방법"]
     data["소재"] = brand["소재"]
-    
+    # 미입력시 기본값 적용되는 컬럼들.
 
 
-    # 정보가 없는 컬럼 빈칸 처리
+    # 참조정보가 없는 컬럼 빈칸 처리
     for column in order_columns:
         if (column in data.columns):
             continue

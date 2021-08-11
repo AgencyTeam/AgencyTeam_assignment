@@ -22,10 +22,13 @@ def generate_df(brand,order_columns):
     data["Maximum Purchase Quantity"] = brand["판매가능 총수량"]
     data["Price"] = brand["최초소비자가"]
     data["Stock"] = brand["총재고수량"]
-    data["Weight"] = brand["무게"]
+    data["Weight"] = brand["무게"].str[0:-1]
+    data["Weight"] = pd.to_numeric(data["Weight"])/1000
+    data["Weight"] = data["Weight"].round(2)
+    # 미입력시 기본값 적용되는 컬럼들.
 
 
-    # 정보가 없는 컬럼 빈칸 처리
+    # 참조정보가 없는 컬럼 빈칸 처리
     for column in order_columns:
         if (column in data.columns):
             continue

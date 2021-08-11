@@ -24,22 +24,23 @@ def upload_complete():
 
             x = dt.datetime.now()
             file_name = f"{x.year}{x.month}{x.day}{x.hour}{x.minute}{x.second}{x.microsecond}"
-            file_name_list = []
 
             if 'Domestic' in server_list:
                 path_1 = f"{UPLOAD_DIR_PATH}/{file_name}국내서버업로드용.xlsx"
                 brand2domestic(file,path_1)
-                file_name_list.append(path_1)
+
             if 'SouthEastAsia' in server_list:
                 path_2 = f"{UPLOAD_DIR_PATH}/{file_name}동남아서버업로드용.xlsx"
                 brand2SEA(file,path_2)
-                file_name_list.append(path_2)
+
             if 'China' in server_list:
                 path_3 = f"{UPLOAD_DIR_PATH}/{file_name}중국(위챗)서버업로드용.xlsx"
                 brand2china(file,path_3)
-                file_name_list.append(path_3)
             
 
-            return render_template('upload/upload_complete.html', server_list=server_list, file_list = file_name_list)
+            return render_template('upload/upload_complete.html', server_list=server_list
+                                    ,domestic_path = f"{file_name}국내서버업로드용.xlsx"
+                                    ,sea_path = f"{file_name}동남아서버업로드용.xlsx"
+                                    ,china_path = f"{file_name}중국(위챗)서버업로드용.xlsx")
         except:
             return '파일 변환에 실패하였습니다. 다시 시도해주세요.'

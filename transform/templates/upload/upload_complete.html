@@ -12,13 +12,13 @@
             <h1></h1>
             <br><br>
             {% if 'Domestic' in server_list %}
-            <h5><a href="{{ url_for('download', filename = file_list[0]) }}" class="badge badge-light" download="국내서버업로드용.xlsx">국내서버업로드용.xlsx</a></h5>
+            <h5><a href="{{ url_for('download', filename = domestic_path) }}" class="badge badge-light" download="국내서버업로드용.xlsx">국내서버업로드용.xlsx</a></h5>
             {% endif %}
             {% if 'SouthEastAsia' in server_list %}
-            <h5><a href="{{ url_for('download', filename = file_list[1]) }}" class="badge badge-light" download="동남아서버업로드용.xlsx">동남아서버업로드용.xlsx</a></h5>
+            <h5><a href="{{ url_for('download', filename = sea_path) }}" class="badge badge-light" download="동남아서버업로드용.xlsx">동남아서버업로드용.xlsx</a></h5>
             {% endif %}
             {% if 'China' in server_list %}
-            <h5><a href="{{ url_for('download', filename = file_list[2]) }}" class="badge badge-light" download="중국(위챗)서버업로드용.xlsx">중국(위챗)서버업로드용.xlsx</a></h5>
+            <h5><a href="{{ url_for('download', filename = china_path) }}" class="badge badge-light" download="중국(위챗)서버업로드용.xlsx">중국(위챗)서버업로드용.xlsx</a></h5>
             {% endif %}
         </div>
     <br>

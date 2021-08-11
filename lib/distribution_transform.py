@@ -39,8 +39,6 @@ def distribution_df(order_info_df,form_data, distribution_columns):
             distribution_dict["Receiver City"] = data
         elif (column == "province"):
             distribution_dict["Receiver Province"] = data
-        elif (column == "customer phone"):
-            distribution_dict["Receiver Tel"] = data
         elif (column == "certificates NO."):
             distribution_dict["Receiver Credentials No"] = data
         elif (column == "vendor remark"):

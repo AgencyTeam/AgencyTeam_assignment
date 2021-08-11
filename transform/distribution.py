@@ -7,6 +7,7 @@ from path import UPLOAD_DIR_PATH
 
 bp = Blueprint('distribution', __name__, url_prefix='/distribution')
 
+#distribution page (distribution.html 실행)
 @bp.route('/', methods = ['GET', 'POST'])
 @login_required
 def distribution():

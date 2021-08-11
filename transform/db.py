@@ -1,6 +1,5 @@
 import sqlite3
 import click
-from click.decorators import argument
 from flask import current_app, g
 from flask.cli import with_appcontext
 from werkzeug.security import generate_password_hash

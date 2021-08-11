@@ -6,10 +6,12 @@ venv/
 .venv/
 
 instance/
-upload_files/
 
 *.db
 *.sqlite
 *.pyc
 
 transform/static/files/*.xlsx
+upload_files/*.xlsx
+
+.DS_Store

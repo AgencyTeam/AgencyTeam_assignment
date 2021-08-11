@@ -12,7 +12,7 @@
     </center>
     <script>
         function test() {
-        window.open("{{ url_for('static', filename = 'files/distribution.xlsx') }}")
+        window.open("{{ url_for('download', filename = filename) }}")
         }
         test()
     </script>

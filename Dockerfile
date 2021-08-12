@@ -10,8 +10,7 @@ WORKDIR /AgencyTeam_assignment
 # pip install 실행
 RUN pip install -r requirements.txt
 
-# 이 이미지는 5000번 포트를 외부에 공개할 예정이다
-# 이것이 있다고 해도 포트를 매핑시키지 않으면 소용없음.
+# Docker 에게 port 5000을 쓰겠다고 선언
 EXPOSE 5000
 
 # 환경변수 설정

@@ -29,6 +29,12 @@ def create_app():
     except OSError:
         pass
 
+    # upload_files 폴더가 없으면 생성
+    try:
+        os.makedirs(UPLOAD_DIR_PATH)
+    except OSError:
+        pass
+
     app.register_blueprint(main.bp)
     app.register_blueprint(order.bp)
     app.register_blueprint(distribution.bp)

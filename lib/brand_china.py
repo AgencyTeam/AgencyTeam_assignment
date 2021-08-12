@@ -25,6 +25,7 @@ def generate_df(brand,order_columns):
     data["원산지(제조국)(영문)"] = brand["원산지"] + "/Korea"
     data["세탁방법"] = brand["세탁방법"]
     data["소재"] = brand["소재"]
+
     # 미입력시 기본값 적용되는 컬럼들.
 
 
@@ -61,5 +62,6 @@ def brand2china(file_path,upload_path):
                     ,'세탁방법','품목 및 모델명','소재','제품설명']
 
     brand_df = excel2df(file_path)
+    del brand_df["이미지"]
     china_df = generate_df(brand_df, order_columns)
     df2excel(china_df,UPLOAD_CHINA_FORM,upload_path)

@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request
-import os
 from lib.brand_domestic import brand2domestic
 from lib.brand_SouthEastAsia import brand2SEA
 from lib.brand_china import brand2china
 from path import UPLOAD_DIR_PATH
 import datetime as dt
+from zipfile import ZipFile
+import pandas as pd
 
 bp = Blueprint('upload', __name__, url_prefix='/upload')
 
@@ -18,8 +19,17 @@ def upload():
 def upload_complete():
     if request.method == 'POST':
         try:
-            # form 데이터 받기 / 파일, 서버선택리스트
-            file = request.files['file']
+            # 브랜드 압축파일 해제, file=브랜드엑셀파일경로, zip_file_list=jpg리스트
+            zip_file = request.files['file']
+            with ZipFile(zip_file, 'r') as zip:
+                zip_file_list = zip.namelist()
+                for name in zip_file_list:
+                    if name.endswith("xlsx"):
+                        zip.extract(name,f"{UPLOAD_DIR_PATH}")
+                        file = f"{UPLOAD_DIR_PATH}/{name}"
+                        break
+
+            # 서버선택리스트 받기
             server_list = request.form.getlist('server')
 
             x = dt.datetime.now()
@@ -27,7 +37,7 @@ def upload_complete():
 
             if 'Domestic' in server_list:
                 path_1 = f"{UPLOAD_DIR_PATH}/{file_name}국내서버업로드용.xlsx"
-                brand2domestic(file,path_1)
+                brand2domestic(file,path_1,zip_file_list)
 
             if 'SouthEastAsia' in server_list:
                 path_2 = f"{UPLOAD_DIR_PATH}/{file_name}동남아서버업로드용.xlsx"

@@ -25,6 +25,8 @@ def generate_df(brand,order_columns):
     data["Weight"] = brand["무게"].str[0:-1]
     data["Weight"] = pd.to_numeric(data["Weight"])/1000
     data["Weight"] = data["Weight"].round(2)
+    # data["이미지"] = brand["상품코드"].apply(lambda x : [name for name in jpg_list if x in name])
+    
     # 미입력시 기본값 적용되는 컬럼들.
 
 
@@ -63,5 +65,6 @@ def brand2SEA(file_path,upload_path):
                     ,'Weight','Length','Width','Height','Standard Express - Korea','Pre-order DTS']
 
     brand_df = excel2df(file_path)
+    del brand_df["이미지"]
     sea_df = generate_df(brand_df,order_columns)
     df2excel(sea_df,UPLOAD_SEA_FORM,upload_path)

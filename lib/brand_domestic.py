@@ -11,8 +11,10 @@ def excel2df(file_path):
         print("엑셀파일을 불러오는데 실패했습니다.")
         return 0
 
+def find_list(jpg_list,name):
+    return ','.join([i for i in jpg_list if i.startswith(name) ])
 
-def generate_df(brand,order_columns):
+def generate_df(brand,order_columns,jpg_list):
     # 빈 데이터프레임 선언
     data = pd.DataFrame()
 
@@ -26,6 +28,7 @@ def generate_df(brand,order_columns):
     data["원산지"] = brand["원산지"]
     data["제조사"] = brand["제조원"].str.strip()
     data["브랜드"] = brand["브랜드"].str.strip()
+    data["대표 이미지 파일명"] = brand["상품코드"].apply(lambda x : find_list(jpg_list,x))
     # 미입력시 기본값 적용되는 컬럼들.
     data["상품상태"] = "신상품"
     data["세금"] = "과세상품"
@@ -71,7 +74,7 @@ def df2excel(df, form_path, new_path):
 
     wb.save(new_path)
 
-def brand2domestic(file_path,upload_path):
+def brand2domestic(file_path,upload_path,jpg_list):
     order_columns = ['상품명','자체 상품코드','카테고리ID','요약설명','판매상태','상품상태','판매가','무게','정가'
                         ,'재고사용','재고수량','SKU(재고번호)','대표 이미지 파일명','상품 상세정보','세금'
                         ,'미성년자 구매','개인통관고유부호','원산지','제조사','브랜드','배송방법','택배 가능 여부'
@@ -89,7 +92,8 @@ def brand2domestic(file_path,upload_path):
                         ,'네이버 쇼핑 카테고리 ID','최소 구매수량','1회 구매시 최대 수량','1인 최대 구매수량'
                         ,'주문제작상품','병행수입','해외구매대행','판매방식','다음 쇼핑하우 노출 설정','네이버 쇼핑 노출 설정'
                         ,'네이버 페이 구매가능 설정','Facebook 다이내믹 광고 설정']
-
+    
     brand_df = excel2df(file_path)
-    domestic_df = generate_df(brand_df, order_columns)
+    del brand_df["이미지"]
+    domestic_df = generate_df(brand_df, order_columns, jpg_list)
     df2excel(domestic_df,UPLOAD_DOMESTIC_FORM,upload_path)

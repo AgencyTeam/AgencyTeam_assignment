@@ -12,7 +12,7 @@ def excel2df(file_path):
         return 0
 
 
-def generate_df(brand,order_columns,jpg_list):
+def generate_df(brand,order_columns):
     # 빈 데이터프레임 선언
     data = pd.DataFrame()
 
@@ -57,7 +57,7 @@ def df2excel(df, form_path, new_path):
     wb.save(new_path)
 
 
-def brand2SEA(file_path,upload_path,jpg_list):
+def brand2SEA(file_path,upload_path):
     order_columns = ['Category','Product Name','Product Description','Maximum Purchase Quantity','Maximum Purchase Quantity - Start Date'
                     ,'Maximum Purchase Quantity - Time Period (in Days)','Maximum Purchase Quantity - End Date','Parent SKU','Variation Integration No.'
                     ,'Variation Name1','Option for Variation 1','Image per Variation','Variation Name2','Option for Variation 2','Price','Stock'
@@ -66,5 +66,5 @@ def brand2SEA(file_path,upload_path,jpg_list):
 
     brand_df = excel2df(file_path)
     del brand_df["이미지"]
-    sea_df = generate_df(brand_df,order_columns,jpg_list)
+    sea_df = generate_df(brand_df,order_columns)
     df2excel(sea_df,UPLOAD_SEA_FORM,upload_path)

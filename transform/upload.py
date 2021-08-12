@@ -28,7 +28,6 @@ def upload_complete():
                         zip.extract(name,f"{UPLOAD_DIR_PATH}")
                         file = f"{UPLOAD_DIR_PATH}/{name}"
                         break
-                # print(zip_file_list[0:10],file)
 
             # 서버선택리스트 받기
             server_list = request.form.getlist('server')
@@ -42,7 +41,7 @@ def upload_complete():
 
             if 'SouthEastAsia' in server_list:
                 path_2 = f"{UPLOAD_DIR_PATH}/{file_name}동남아서버업로드용.xlsx"
-                brand2SEA(file,path_2,zip_file_list)
+                brand2SEA(file,path_2)
 
             if 'China' in server_list:
                 path_3 = f"{UPLOAD_DIR_PATH}/{file_name}중국(위챗)서버업로드용.xlsx"

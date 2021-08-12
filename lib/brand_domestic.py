@@ -12,8 +12,7 @@ def excel2df(file_path):
         return 0
 
 def find_list(jpg_list,name):
-    list = [i for i in jpg_list if i.startswith(name)]
-    return list
+    return ','.join([i for i in jpg_list if i.startswith(name) ])
 
 def generate_df(brand,order_columns,jpg_list):
     # 빈 데이터프레임 선언
@@ -93,7 +92,7 @@ def brand2domestic(file_path,upload_path,jpg_list):
                         ,'네이버 쇼핑 카테고리 ID','최소 구매수량','1회 구매시 최대 수량','1인 최대 구매수량'
                         ,'주문제작상품','병행수입','해외구매대행','판매방식','다음 쇼핑하우 노출 설정','네이버 쇼핑 노출 설정'
                         ,'네이버 페이 구매가능 설정','Facebook 다이내믹 광고 설정']
-
+    
     brand_df = excel2df(file_path)
     del brand_df["이미지"]
     domestic_df = generate_df(brand_df, order_columns, jpg_list)

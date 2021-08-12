@@ -28,20 +28,18 @@ def create_app():
 
     # app의 기본 설정 세팅
     if os.environ["FLASK_ENV"] == "development":
-        SECRET_KEY = os.getenv('SECRET_KEY', 'dev')
         app.config.from_mapping(
             # 데이터 보안을 위해 사용. 개발 중에는 편의를 위해 'dev', 실 가동 환경에서는 꼭 랜덤값으로 엎어써야함.
-            SECRET_KEY=SECRET_KEY,
+            SECRET_KEY='dev',
             # SQlite DB 파일의 경로.
             # instance 밑에 transform.sqlite 라는 이름.
             DATABASE=os.path.join(app.instance_path, 'transform.sqlite'),
             UPLOAD_FOLDER=UPLOAD_DIR_PATH,
         )
     else:
-        SECRET_KEY = os.getenv('SECRET_KEY', secrets.token_urlsafe(16))
         app.config.from_mapping(
             # 데이터 보안을 위해 사용. 개발 중에는 편의를 위해 'dev', 실 가동 환경에서는 꼭 랜덤값으로 엎어써야함.
-            SECRET_KEY=SECRET_KEY,
+            SECRET_KEY=secrets.token_urlsafe(16),
             # SQlite DB 파일의 경로.
             # instance 밑에 transform.sqlite 라는 이름.
             DATABASE=os.path.join(app.instance_path, 'transform.sqlite'),

@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template
-
 # 'main' -> 나중에 함수명으로 URL을 찾아내는 url_for 함수에서 쓰는 이름
 # __name__ -> 모듈명
 # url_prefix -> 함수들의 URL 앞에 항상 붙게 되는 프리픽스 URL

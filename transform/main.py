@@ -11,6 +11,6 @@ def main():
     return render_template('main/main.html')
 
 
-# @bp.route('/master', method=['GET'])
+# @bp.route('/master_update', methods=['GET', 'POST'])
 # def master():
-#     return render_template('main/master.html')
+#     return render_template('main/masterDB.html')

@@ -23,9 +23,9 @@ def distribution_complete():
         # form 데이터받기
         file = request.files['file']
         form_data = request.form
-        upload_path = f"{UPLOAD_DIR_PATH}/{file_name}.xlsx"
+        upload_path = f"{UPLOAD_DIR_PATH}/{file_name}물류파일.xlsx"
 
         #받은 데이터를 엑셀로 변환하여 저장하기
         distribution_from_orderinfo(file, form_data, upload_path)
             
-        return render_template('distribution/distribution_complete.html', filename=f"{file_name}.xlsx" )
+        return render_template('distribution/distribution_complete.html', filename=f"{file_name}물류파일.xlsx" )

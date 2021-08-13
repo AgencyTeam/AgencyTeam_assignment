@@ -8,6 +8,7 @@ bp = Blueprint('order', __name__, url_prefix='/order')
 
 
 @bp.route('/', methods=['GET', 'POST'])
+@login_required
 def order():
     return render_template('order/order.html')
 

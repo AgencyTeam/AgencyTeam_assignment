@@ -14,86 +14,89 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <form action="{{ url_for('order.order_complete') }}" method="POST" enctype="multipart/form-data">
-        <p class="text-white fs-5">1. Excel file select</p>
         <p class="fs-6 text-white">
-          * 필수 입력 *<br>
-          - xlsx, xls 형식의 파일만 선택 가능<br>
-          - 주문 정보가 담긴 시트 이름 : 주문정보<br>
-          - 마스터파일 정보가 담긴 시트 이름 : 마스터파일<br>
-          - 입력된 값들은 모두 일괄 적용됨
+          - (필수) xlsx, xls 형식의 파일만 선택 가능<br>
+          - (필수) 시트이름을 적어주세요.<br>
+          - 입력 칸이 비어있으면 빈 칸으로 입력됩니다.<br>
+          - 마스터파일에서 참조하지 못하는 정보가 있으면 값이 올바르게 나오지 않습니다.
         </p>
+        <p class="text-white fs-5">1. Excel file select</p>
         <div class="mb-4">
           <input class="form-control" type="file" id="formFile" name="file" required>
         </div>
-        <p class="text-white fs-5">2. Orderer information</p>
+        <p class="text-white fs-5">2. Excel file sheet name</p>
+        <div class="input-group mb-3">
+          <span class="w-25 input-group-text" id="basic-addon1">주문정보 시트</span>
+          <input type="text" class="form-control" name="주문시트" placeholder="ex) secoo주문영문" required>
+        </div>
+        <div class="input-group mb-3">
+          <span class="w-25 input-group-text" id="basic-addon1">마스타파일 시트</span>
+          <input type="text" class="form-control" name="마스타시트" placeholder="ex) 마스타파일" required>
+        </div>
+        <p class="text-white fs-5">3. Orderer information</p>
         <p class="fs-6 text-white">
-          - Input 칸에 값을 입력하지 않을 시 빈 값으로 입력됨<br>
-          - 전화번호 ex) 010-1234-5678
         </p>
         <div class="input-group mb-3">
-          <span class="w-25 input-group-text" id="basic-addon1">주문자 성명</span>
-          <input type="text" class="form-control" name="주문자 성명">
+          <span class="w-25 input-group-text" id="basic-addon1">주문자 이름</span>
+          <input type="text" class="form-control" name="주문자 이름" value="에이전시팀">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">주문자 전화번호</span>
-          <input type="text" class="form-control" name="주문자 전화번호">
+          <input type="text" class="form-control" name="주문자 전화번호" value="010-3311-7252">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">주문자 휴대폰</span>
-          <input type="text" class="form-control" name="주문자 휴대폰">
+          <input type="text" class="form-control" name="주문자 휴대폰" value="010-3311-7252">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">주문자 이메일</span>
-          <input type="email" class="form-control" name="주문자 이메일">
+          <input type="email" class="form-control" name="주문자 이메일" value="jiyeon@agencyteam.co.kr">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">주문자 우편번호</span>
-          <input type="text" class="form-control" name="주문자 우편번호">
+          <input type="text" class="form-control" name="주문자 우편번호" value="18469">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">주문자 고정주소</span>
-          <input type="text" class="form-control" name="주문자 고정주소">
+          <input type="text" class="form-control" name="주문자 고정주소" value="경기도 화성시 동탄기흥로 560">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">주문자 상세주소</span>
-          <input type="text" class="form-control" name="주문자 상세주소">
+          <input type="text" class="form-control" name="주문자 상세주소" value="605호">
         </div>
-        <p class="text-white fs-5">3. Recipient information</p>
+        <p class="text-white fs-5">4. Recipient information</p>
         <p class="fs-6 text-white">
-          - Input 칸에 값을 입력하지 않을 시 빈 값으로 입력됨<br>
-          - 전화번호 ex) 010-1234-5678
         </p>
         <div class="input-group mb-3">
-          <span class="w-25 input-group-text" id="basic-addon1">수령자 성명</span>
-          <input type="text" class="form-control" name="수령자 성명">
+          <span class="w-25 input-group-text" id="basic-addon1">수령자 이름</span>
+          <input type="text" class="form-control" name="수령자 이름" value="에이전시팀">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">수령자 전화번호</span>
-          <input type="text" class="form-control" name="수령자 전화번호">
+          <input type="text" class="form-control" name="수령자 전화번호" value="010-3311-7252">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">수령자 휴대폰</span>
-          <input type="text" class="form-control" name="수령자 휴대폰">
+          <input type="text" class="form-control" name="수령자 휴대폰" value="010-3311-7252">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">수령자 이메일</span>
-          <input type="email" class="form-control" name="수령자 이메일">
+          <input type="email" class="form-control" name="수령자 이메일" value="jiyeon@agencyteam.co.kr">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">수령자 우편번호</span>
-          <input type="text" class="form-control" name="수령자 우편번호">
+          <input type="text" class="form-control" name="수령자 우편번호" value="18469">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">수령자 고정주소</span>
-          <input type="text" class="form-control" name="수령자 고정주소">
+          <input type="text" class="form-control" name="수령자 고정주소" value="경기도 화성시 동탄기흥로 560">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">수령자 상세주소</span>
-          <input type="text" class="form-control" name="수령자 상세주소">
+          <input type="text" class="form-control" name="수령자 상세주소" value="605호">
         </div>
-        <p class="text-white fs-5">4. Other information</p>
+        <p class="text-white fs-5">5. Other information</p>
         <p class="fs-6 text-white">
-          - Input 칸에 값을 입력하지 않을 시 빈 값으로 입력됨
         </p>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">상점ID</span>
@@ -109,11 +112,7 @@
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">환율</span>
-          <input type="text" class="form-control" name="환율">
-        </div>
-        <div class="input-group mb-3">
-          <span class="w-25 input-group-text" id="basic-addon1">165</span>
-          <input type="text" class="form-control" name="165">
+          <input type="text" class="form-control" name="환율" value="165">
         </div>
         <div class="input-group mb-3">
           <span class="w-25 input-group-text" id="basic-addon1">LF CJ운송장</span>

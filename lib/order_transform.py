@@ -4,19 +4,12 @@ from path import ORDER_EXCEL_FORM
 
 
 # excel file -> df
-def excel2df(file_path, sheet_name=None):
-    if sheet_name:
-        try:
-            df = pd.read_excel(file_path, sheet_name)
-            return df
-        except:
-            print("엑셀파일을 불러오는데 실패했습니다.")
-            return 0
+def excel2df(file_path, sheet_name):
     try:
-        df = pd.read_csv(file_path)
+        df = pd.read_excel(file_path, sheet_name)
         return df
     except:
-        print("csv파일을 불러오는데 실패했습니다.")
+        print("엑셀파일을 불러오는데 실패했습니다.")
         return 0
 
 
@@ -86,7 +79,11 @@ def generate_df(transformed_order_df, form_data, order_columns):
         if form_data[key] == "":
             continue
         else:
-            order_dict[key] = [form_data[key]] * len(transformed_order_df)
+            if key == "환율":
+                order_dict[key] = [int(form_data[key])] * \
+                    len(transformed_order_df)
+            else:
+                order_dict[key] = [form_data[key]] * len(transformed_order_df)
 
     # 만든 dict -> df로 변환
     new_df = pd.DataFrame(order_dict)
@@ -124,13 +121,13 @@ def df2excel(df, form_path, new_path):
 def make_excel(file, form_data, upload_path):
     need_columns = ['product model', 'vendor product No.',
                     'product quantity', 'order No.', 'create time', 'settle price']
-    order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자 성명', '주문자 전화번호',
+    order_columns = ['상품코드', '사이즈코드', '주문수량', '외부몰주문번호', '총주문금액', '결제일시', '상점ID', '주문자 이름', '주문자 전화번호',
                      '주문자 휴대폰', '주문자 이메일', '주문자 우편번호', '주문자 고정주소', '주문자 상세주소', '수령자 이름', '수령자 전화번호', '수령자 휴대폰',
-                     '수령자 이메일', '수령자 우편번호', '수령자 고정주소', '수령자 상세주소', '주문 메모', '업체 코드', '외부몰 부주문 코드', '환율', 165,
+                     '수령자 이메일', '수령자 우편번호', '수령자 고정주소', '수령자 상세주소', '주문 메모', '업체 코드', '외부몰 부주문 코드', '환율',
                      'LF CJ운송장', 'SF EXPRESS 운송장', '소비자가', '실판매가', '배송비', '실판매가-배송비', '발주가', '발주가(최종)']
 
-    order_df = excel2df(file, sheet_name="주문정보")
-    master_df = excel2df(file, sheet_name="마스터파일")
+    order_df = excel2df(file, sheet_name=form_data["주문시트"])
+    master_df = excel2df(file, sheet_name=form_data["마스타시트"])
 
     transformed_order_df = df_transform(order_df, master_df, need_columns)
 

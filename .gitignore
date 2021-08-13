@@ -1,17 +1,13 @@
-.vscode/
+.*
 
 __pycache__
 
 venv/
-.venv/
 
 instance/
+upload_files/
+tmp/
 
 *.db
 *.sqlite
 *.pyc
-
-transform/static/files/*.xlsx
-upload_files/*.xlsx
-
-.DS_Store

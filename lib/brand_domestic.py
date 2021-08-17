@@ -18,7 +18,6 @@ def generate_df(brand,order_columns):
     # 빈 데이터프레임 선언
     data = pd.DataFrame()
 
-    print(brand["브랜드명"])
     # 통합데이터포맷 값 직접사용
     data["브랜드"] = brand["브랜드명"].str.strip()
     data["자체 상품코드"] = brand["상품코드"].str[0:50]
@@ -110,7 +109,7 @@ def brand2domestic(file_path,upload_path):
     del brand_df["이미지"]
     # 정보 나타내는 행들 제거
     brand_df.drop([brand_df.index[0],brand_df.index[1]],inplace=True)
-    pd.set_option("display.max_columns",30)
+
     domestic_df = generate_df(brand_df, order_columns)
     # print(domestic_df.head(5))
     df2excel(domestic_df,UPLOAD_DOMESTIC_FORM,upload_path)

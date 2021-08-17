@@ -28,7 +28,7 @@ def generate_df(brand,order_columns):
     data["소재"] = brand["소재"]
     data['스타일+사이즈'] = brand["상품코드"].str[:8] + data['사이즈']
     data['제품 설명'] = brand['상품설명']
-    # 미입력시 기본값 적용되는 컬럼들.
+
     
 
     # 참조정보가 없는 컬럼 빈칸 처리

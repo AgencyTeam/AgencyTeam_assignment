@@ -19,25 +19,26 @@ def upload():
 def upload_complete():
     if request.method == 'POST':
         try:
-            # 브랜드 압축파일 해제, file=브랜드엑셀파일경로, zip_file_list=jpg리스트
-            zip_file = request.files['file']
-            with ZipFile(zip_file, 'r') as zip:
-                zip_file_list = zip.namelist()
-                for name in zip_file_list:
-                    if name.endswith("xlsx"):
-                        zip.extract(name,f"{UPLOAD_DIR_PATH}")
-                        file = f"{UPLOAD_DIR_PATH}/{name}"
-                        break
+            # # 브랜드 압축파일 해제, file=브랜드엑셀파일경로, zip_file_list=jpg리스트
+            # zip_file = request.files['file']
+            # with ZipFile(zip_file, 'r') as zip:
+            #     zip_file_list = zip.namelist()
+            #     for name in zip_file_list:
+            #         if name.endswith("xlsx"):
+            #             zip.extract(name,f"{UPLOAD_DIR_PATH}")
+            #             file = f"{UPLOAD_DIR_PATH}/{name}"
+            #             break
 
             # 서버선택리스트 받기
             server_list = request.form.getlist('server')
 
             x = dt.datetime.now()
             file_name = f"{x.year}{x.month}{x.day}{x.hour}{x.minute}{x.second}{x.microsecond}"
+            file = request.files['file']
 
             if 'Domestic' in server_list:
                 path_1 = f"{UPLOAD_DIR_PATH}/{file_name}국내서버업로드용.xlsx"
-                brand2domestic(file,path_1,zip_file_list)
+                brand2domestic(file,path_1)
 
             if 'SouthEastAsia' in server_list:
                 path_2 = f"{UPLOAD_DIR_PATH}/{file_name}동남아서버업로드용.xlsx"

@@ -29,6 +29,7 @@ def generate_df(brand,order_columns,jpg_list):
     data["제조사"] = brand["제조원"].str.strip()
     data["브랜드"] = brand["브랜드"].str.strip()
     data["대표 이미지 파일명"] = brand["상품코드"].apply(lambda x : find_list(jpg_list,x))
+    
     # 미입력시 기본값 적용되는 컬럼들.
     data["상품상태"] = "신상품"
     data["세금"] = "과세상품"

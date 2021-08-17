@@ -16,18 +16,20 @@ def generate_df(brand,order_columns):
 
     # 중국 서버용 형식에 맞게 변환 / 정확해보인것들 일부만 해봄.
     data["구분(품번)"] = brand["상품코드"]
-
     # 브랜드에서 한글로 제품명 제공한경우, 영문으로 바꿔야함
-    # data["상품명"] = brand["상품명"]
-    data["정상공급가"] = brand["최초소비자가"]
+    data["상품명"] = brand["제품명"]
+
+    data["정상공급가"] = brand["가격"]
     data["색상(영문)"] = brand["색상"]
-    data["재고수량"] = brand["총재고수량"]
+    data["사이즈"] = brand["사이즈"]
+    data["재고수량"] = brand["재고수량"]
     data["원산지(제조국)(영문)"] = brand["원산지"] + "/Korea"
     data["세탁방법"] = brand["세탁방법"]
     data["소재"] = brand["소재"]
-
+    data['스타일+사이즈'] = brand["상품코드"].str[:8] + data['사이즈']
+    data['제품 설명'] = brand['상품설명']
     # 미입력시 기본값 적용되는 컬럼들.
-
+    
 
     # 참조정보가 없는 컬럼 빈칸 처리
     for column in order_columns:
@@ -63,5 +65,8 @@ def brand2china(file_path,upload_path):
 
     brand_df = excel2df(file_path)
     del brand_df["이미지"]
+
+    brand_df.drop([brand_df.index[0], brand_df.index[1]],inplace=True)
     china_df = generate_df(brand_df, order_columns)
+
     df2excel(china_df,UPLOAD_CHINA_FORM,upload_path)

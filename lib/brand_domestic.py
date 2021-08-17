@@ -21,8 +21,8 @@ def generate_df(brand,order_columns,jpg_list):
     # 국내 서버용 형식에 맞게 변환 / 정확해보인것들 일부만 해봄.
     data["상품명"] = brand["상품명"].str[0:100]
     data["자체 상품코드"] = brand["상품코드"].str[0:50]
-    data["판매상태"] = brand["판매가능 총수량"].apply(lambda x: "판매중" if x > 0 else "품절")
-    data["판매가"] = brand["최초소비자가"]
+    data["판매상태"] = brand["판매가능\n총수량"].apply(lambda x: "판매중" if x > 0 else "품절")
+    # data["판매가"] = brand["최초소비자가"]
     data["무게"] = brand["무게"]
     data["상품 상세정보"] = brand["상품고시정보_HTML"]
     data["원산지"] = brand["원산지"]

@@ -19,7 +19,7 @@ def generate_df(brand,order_columns):
     # 동남아 서버용 형식에 맞게 변환 / 정확해보인것들 일부만 해봄.
     data["Product Name"] = brand["상품명"].str[0:255]
     # data["Product Description"] = brand[""]
-    data["Maximum Purchase Quantity"] = brand["판매가능 총수량"]
+    data["Maximum Purchase Quantity"] = brand["판매가능\n총수량"]
     data["Price"] = brand["최초소비자가"]
     data["Stock"] = brand["총재고수량"]
     data["Weight"] = brand["무게"].str[0:-1]

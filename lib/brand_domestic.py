@@ -94,6 +94,8 @@ def brand2domestic(file_path,upload_path,jpg_list):
                         ,'네이버 페이 구매가능 설정','Facebook 다이내믹 광고 설정']
     
     brand_df = excel2df(file_path)
+    # wb = load_workbook(file_path)
+    # sheet = wb["21SS HW LIST_210517"]
     del brand_df["이미지"]
     domestic_df = generate_df(brand_df, order_columns, jpg_list)
     df2excel(domestic_df,UPLOAD_DOMESTIC_FORM,upload_path)

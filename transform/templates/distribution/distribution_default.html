@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid bg-dark">
+    <center>
+        <br>
+        <legend>
+            <p class="text-white fs-2">Distribution default value update</p>
+        </legend><br>
+    </center>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <p class="fs-6 text-white">
+                - 입력 칸이 비어있으면 빈 칸으로 저장됩니다.<br>
+                - Update 버튼을 누르면 입력한 값대로 저장됩니다.
+            </p>
+            <form action="{{url_for('distribution.distribution_default_update')}}" method="POST"
+                enctype="multipart/form-data">
+                <p class="text-white fs-5">1. Excel file sheet name</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">주문정보 시트</span>
+                    <input type="text" class="form-control" name="sheet" placeholder="ex) secoo주문영문"
+                        value="{{data['sheet']}}">
+                </div>
+                <p class="text-white fs-5">2. Shipper's information</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon3">Customer Account No.</span>
+                    <input type="text" class="form-control" name="Customer Account No." placeholder=""
+                        value="{{data['Customer Account No.']}}">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Company Name</span>
+                    <input type="text" class="form-control" name="Company Name" placeholder=""
+                        value="{{data['Company Name']}}">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Contact Name</span>
+                    <input type="text" class="form-control" value="Jiyeon Song" name="Contact Name"
+                        placeholder="Jiyeon Song" value="{{data['Contact Name']}}">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Tel</span>
+                    <input type="text" class="form-control" value="821033117252" name="Tel" placeholder="821033117252"
+                        value="{{data['Tel']}}">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Address</span>
+                    <input type="text" class="form-control" name="Address"
+                        value="Room 1319, Mirabell tower 13F, 362-2, Yeongcheon-dong"
+                        placeholder="Room 1319, Mirabell tower 13F, 362-2, Yeongcheon-dong" value="{{data['Address']}}">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">City</span>
+                    <input type="text" class="form-control" name="City" placeholder="Hwaseong-si"
+                        value="{{data['City']}}">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Province</span>
+                    <input type="text" class="form-control" name="Province" value="{{data['Province']}}"
+                        placeholder="Gyeonggi-do">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Country/Region</span>
+                    <input type="text" class="form-control" name="Country/Region" value="{{data['Country/Region']}}"
+                        placeholder="Korea">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Email</span>
+                    <input type="text" class="form-control" name="Email" value="{{data['Email']}}">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Postal Code</span>
+                    <input type="text" class="form-control" name="Postal Code" value="{{data['Postal Code']}}"
+                        placeholder="18469">
+                </div>
+
+
+                <p class="text-white fs-5">3. Receiver's Information</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Receiver Country/Region</span>
+                    <input type="text" name="Receiver Country/Region" value="{{data['Receiver Country/Region']}}"
+                        class="form-control" placeholder="China">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Receiver Credentials Type</span>
+                    <input type="text" name="Receiver Credentials Type" value="{{data['Receiver Credentials Type']}}"
+                        class="form-control" placeholder="ID">
+                </div>
+
+                <p class="text-white fs-5">4. Description of Contents</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Currency</span>
+                    <input type="text" name="Currency" value="{{data['Currency']}}" class="form-control"
+                        placeholder="CNY">
+                </div>
+
+                <p class="text-white fs-5">5. Shipment Type</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Shipment Type</span>
+                    <input type="text" name="Shipment Type" class="form-control" value="{{data['Shipment Type']}}"
+                        placeholder="International Standard Express - Parcel">
+                </div>
+
+                <p class="text-white fs-5">6. Shipment Details</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Total Package</span>
+                    <input type="text" name="Total Package" class="form-control" value="{{data['Total Package']}}"
+                        placeholder="1">
+                </div>
+                <p class="text-white fs-5">7. District Code</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Self Pickup</span>
+                    <input type="text" name="Self Pickup" class="form-control" value="{{data['Self Pickup']}}">
+                </div>
+                <p class="text-white fs-5">8. Payment of Freight Charges</p>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Payment Method</span>
+                    <input type="text" name="Payment Method" class="form-control" value="{{data['Payment Method']}}"
+                        placeholder="Shipper">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Account No.</span>
+                    <input type="text" name="Account No." class="form-control" value="{{data['Account No.']}}"
+                        placeholder="0825004317">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Tax payment</span>
+                    <input type="text" name="Tax payment" class="form-control" value="{{data['Tax payment']}}"
+                        placeholder="Shipper">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="w-25 input-group-text" id="basic-addon1">Notify to pick up</span>
+                    <input type="text" name="Notify to pick up" class="form-control"
+                        value="{{data['Notify to pick up']}}" placeholder="NO">
+                </div>
+                <center><button type="submit" class="btn btn-secondary btn-lg">Update</button><br></center>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% if success %}
+<script>
+    window.alert("Update Success.")
+    location.href = "{{ url_for('distribution.distribution_default_update') }}"
+</script>
+{% elif success %}
+<script>
+    window.alert("Update Failed, 다시 시도해주세요.")
+    location.href = "{{ url_for('distribution.distribution_default_update') }}"
+</script>
+{% endif %}
+{% endblock %}

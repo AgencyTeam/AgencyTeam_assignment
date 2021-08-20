@@ -3,29 +3,58 @@ from transform.auth import login_required
 from lib.distribution_transform import distribution_from_orderinfo
 from pathlib import Path
 import datetime as dt
-from path import UPLOAD_DIR_PATH
+import json
+from path import UPLOAD_DIR_PATH, ROOT_PATH
 
 bp = Blueprint('distribution', __name__, url_prefix='/distribution')
 
-#distribution page (distribution.html 실행)
-@bp.route('/', methods = ['GET', 'POST'])
+# distribution page (distribution.html 실행)
+
+
+@bp.route('/', methods=['GET', 'POST'])
 @login_required
 def distribution():
-    return render_template('distribution/distribution.html')
+    with open(ROOT_PATH + "/transform/default_json/distribution.json", 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        return render_template('distribution/distribution.html', data=data)
 
-@bp.route('/complete', methods = ['GET', 'POST'])
+
+@bp.route('/complete', methods=['GET', 'POST'])
 def distribution_complete():
     if request.method == 'POST':
-        #파일 이름 생성
+        # 파일 이름 생성
         x = dt.datetime.now()
         file_name = f"{x.year}{x.month}{x.day}{x.hour}{x.minute}{x.second}{x.microsecond}"
-        
+
         # form 데이터받기
         file = request.files['file']
         form_data = request.form
         upload_path = f"{UPLOAD_DIR_PATH}/{file_name}물류파일.xlsx"
 
-        #받은 데이터를 엑셀로 변환하여 저장하기
+        # 받은 데이터를 엑셀로 변환하여 저장하기
         distribution_from_orderinfo(file, form_data, upload_path)
-            
-        return render_template('distribution/distribution_complete.html', filename=f"{file_name}물류파일.xlsx" )
+
+        return render_template('distribution/distribution_complete.html', filename=f"{file_name}물류파일.xlsx")
+
+
+@bp.route('/default_update', methods=['GET', 'POST'])
+def distribution_default_update():
+    if request.method == 'GET':
+        with open(ROOT_PATH + "/transform/default_json/distribution.json", 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            return render_template('distribution/distribution_default.html', data=data)
+
+    elif request.method == 'POST':
+        form_data = request.form
+        info = dict()
+
+        for key in form_data:
+            info[key] = form_data[key]
+
+        with open(ROOT_PATH + "/transform/default_json/distribution.json", 'w', encoding='utf-8') as f:
+            try:
+                json.dump(info, f, ensure_ascii=False, indent='\t')
+                success = True
+            except:
+                print("json 쓰기 실패")
+            return render_template('distribution/distribution_default.html', data=info, success=success)

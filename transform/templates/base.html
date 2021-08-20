@@ -31,7 +31,9 @@
               관리자 기능 &nbsp;
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/">...</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('order.order_default_update') }}">발주파일 기본값 수정</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('distribution.distribution_default_update') }}">물류파일 기본값
+                  수정</a></li>
             </ul>
           </li>
           {% endif %}

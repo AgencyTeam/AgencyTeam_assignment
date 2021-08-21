@@ -12,13 +12,18 @@ def excel2df(file_path):
         print("엑셀파일을 불러오는데 실패했습니다.")
         return 0
 
-def stock_sum(x):
-    try:
+def sum_list(x):
+    try: 
         x_list = x.split(',')
         x_int_list=list(map(int, x_list))
         return sum(x_int_list)
     except:
         return x
+
+def first_list(x):
+    x_str = str(x)
+    x_list = x_str.split(',')
+    return x_list[0]
 
 def option_price(color, size, price):
     Ncolor = len(color.split(','))
@@ -35,18 +40,17 @@ def option_stock_num(color, stock):
         x_list = stock.split(',')
         x_int_list=list(map(int, x_list))
         Ncolor = len(color.split(','))
-        num = int(len(x_int_list)/Ncolor)
+        bunch = int(len(x_int_list)/Ncolor)
         i = 0
-        for N in range(Ncolor,0):
-            Lstock = []
-            tmp = x_int_list[i:(i+num-1)]
-            Lstock.append(sum(tmp))
-            i += num
+        Lstock =[]
+        for N in range(Ncolor,0,-1):
+            Lstock.append(sum(x_int_list[i:i+bunch]))
+            i += bunch
         Lstock = list(map(str, Lstock))
         return ','.join(Lstock)
     except:
         return stock
-    return
+
 
 def generate_df(brand,order_columns):
     # 빈 데이터프레임 선언
@@ -60,15 +64,15 @@ def generate_df(brand,order_columns):
     data["자체 상품코드"] = brand["상품코드"].str[0:50]
     # 카테고리ID
     data["요약설명"] = brand["상품설명"]
-    data["재고수량"] = brand["재고수량"].apply(lambda x : stock_sum(x))
+    data["재고수량"] = brand["재고수량"].apply(lambda x : sum_list(x))
     data["판매상태"] = data["재고수량"].apply(lambda x: "판매중" if x != 0 else "품절")
     data["상품상태"] = "신상품"
     data["판매가"] = brand["가격"]
-    data["무게"] = brand["무게(g)"]
+    data["무게"] = brand["무게(g)"].apply(lambda x : first_list(x))
     # 정가
     data["재고사용"] = "Y"
     # SKU(재고번호)
-    # (에러) data["대표이미지파일명"] = brand["이미지"]
+    data["대표이미지파일명"] = brand["이미지"]
     data["상품 상세정보"] = brand["상세정보(html)"]
     data["세금"] = "과세상품"
     data["미성년자 구매"] = "Y"
@@ -88,10 +92,6 @@ def generate_df(brand,order_columns):
     data["필수 옵션값"] = brand["색상"] + "\n" + brand["사이즈"]
     data["필수 옵션가"] = brand.apply(lambda x:option_price(x["색상"], x["사이즈"],x["가격"]), axis=1)
     data["옵션 재고수량"] = brand.apply(lambda x:option_stock_num(x["색상"],x["재고수량"]), axis=1)
-    
-    print(brand.head(5))
-    print(data.head(5))
-
     # '선택 옵션명','선택 옵션값','선택 옵션가','선택 옵션 재고수량','사용자 입력형 옵션','0원 선택옵션 최대 구매수량'
     data["재고소진후주문가능여부"] = "N"
     # "네이버/다음 쇼핑 노출용 상품명", '네이버 쇼핑 이벤트 문구','네이버 쇼핑 카테고리 ID','최소 구매수량','1회 구매시 최대 수량','1인 최대 구매수량'
@@ -150,8 +150,6 @@ def brand2domestic(file_path,upload_path):
                         ,'네이버 페이 구매가능 설정','Facebook 다이내믹 광고 설정']
     
     brand_df = excel2df(file_path)
-    # 이미지컬럼 제거
-    del brand_df["이미지"]
     # 정보 나타내는 행들 제거
     brand_df.drop([brand_df.index[0],brand_df.index[1]],inplace=True)
 

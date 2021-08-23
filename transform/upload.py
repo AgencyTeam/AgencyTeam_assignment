@@ -18,7 +18,7 @@ def upload():
 @bp.route('/complete', methods=['GET', 'POST'])
 def upload_complete():
     if request.method == 'POST':
-        try:
+        
             # 브랜드 압축파일 해제, file=브랜드엑셀파일경로, zip_file_list=jpg리스트
             # zip_file = request.files['file']
             # with ZipFile(zip_file, 'r') as zip:
@@ -54,5 +54,5 @@ def upload_complete():
                                     ,domestic_path = f"{file_name}국내서버업로드용.xlsx"
                                     ,sea_path = f"{file_name}동남아서버업로드용.xlsx"
                                     ,china_path = f"{file_name}중국(위챗)서버업로드용.xlsx")
-        except:
+        
             return '파일 변환에 실패하였습니다. 다시 시도해주세요.'

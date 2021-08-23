@@ -68,11 +68,14 @@ def generate_df(brand,order_columns):
         # print("가슴너비 : " + brand.iloc[0][top_col_num])
         
         # 분류에 따른 상세정보 입력
-        if brand.iloc[brand_row_num]["분류"] == "상의":
+        classification = brand.iloc[brand_row_num]["분류"]
+        classification = classification.split(',')
+        classification = [i.strip() for i in classification]
+        if "상의" in classification:
             des = "\n\n세부사이즈(상의)\n어깨너비 : " + brand.iloc[brand_row_num][top_col_num] + ", 가슴너비 : " + brand.iloc[brand_row_num][top_col_num+1] + ", 소매길이 : " + brand.iloc[brand_row_num][top_col_num+2] + ", 총장(앞) : " + brand.iloc[brand_row_num][top_col_num+3]
-        elif brand.iloc[brand_row_num]["분류"] == "하의":
-            des = "\n\n세부사이즈(하의)\n총장(아웃심) : " + brand.iloc[brand_row_num][bottom_col_num] + ", 허리 : " + brand.iloc[brand_row_num][bottom_col_num + 1]+ ", 엉덩이 : " + brand.iloc[brand_row_num][bottom_col_num + 2] + ", 허벅지 : " + brand.iloc[brand_row_num][bottom_col_num+3]+ ", 밑위 : " + brand.iloc[brand_row_num][bottom_col_num + 4] + ", 밑단 : " + brand.iloc[brand_row_num][bottom_col_num+5],
-        else:
+        if "하의" in classification:
+            des = "\n\n세부사이즈(하의)\n총장(아웃심) : " + brand.iloc[brand_row_num][bottom_col_num] + ", 허리 : " + brand.iloc[brand_row_num][bottom_col_num + 1]+ ", 엉덩이 : " + brand.iloc[brand_row_num][bottom_col_num + 2] + ", 허벅지 : " + brand.iloc[brand_row_num][bottom_col_num+3]+ ", 밑위 : " + brand.iloc[brand_row_num][bottom_col_num + 4] + ", 밑단 : " + brand.iloc[brand_row_num][bottom_col_num+5]
+        if "other" in classification:
             des = "\n\n" + brand.iloc[brand_row_num]["세부사이즈(other)"]
 
         # 색상x사이즈 개수 만큼 row 늘려 값 집어넣기

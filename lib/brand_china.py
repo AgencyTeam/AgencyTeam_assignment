@@ -5,8 +5,10 @@ from openpyxl import load_workbook
 
 def excel2df(file_path):
     try:
-        df = pd.read_excel(file_path, sheet_name=None)
+        df = pd.read_excel(file_path)
         df = df.fillna("")
+        # 데이터타입 int -> str 
+        df = df.applymap(lambda x: str(x))
         return df
     except:
         print("엑셀파일을 불러오는데 실패했습니다.")
@@ -17,136 +19,113 @@ def generate_df(brand,china_columns):
     data = pd.DataFrame()
 
     #세부사이즈 하위컬럼명 변경
-    #print(brand.columns)
     brand.rename(columns = {'Unnamed: 8' : '세부사이즈(상의)2', 'Unnamed: 9' : '세부사이즈(상의)3', 'Unnamed: 10' : '세부사이즈(상의)4', 
                             'Unnamed: 12' : '세부사이즈(하의)2', 'Unnamed: 13' : '세부사이즈(하의)3', 'Unnamed: 14' : '세부사이즈(하의)4',
                             'Unnamed: 15' : '세부사이즈(하의)5', 'Unnamed: 16' : '세부사이즈(하의)6'}, inplace = True)
-    #print(brand.columns)
-    # brand.xs('세부사이즈(상의)', axis=1)
-    # brand.xs('세부사이즈(하의)', axis=1)
-
-    #컬럼 설명행 제거
-    
-    brand = brand.drop(1, axis=0)
-    #brand.iloc[1].drop()    
-
-    # 데이터타입 int -> str 
-    brand = brand.astype(str)
 
     for brand_row_num in range(1,len(brand)):
-        # 사이즈 값이 없을 때 = one size, 색상 값이 없을 떄 = one color
-        # 색,사이즈 개수가 2개 이상이면, row 추가해 각 컬럼에 색,사이즈 하나씩만 들어갈 수 있도록.
 
         if brand.iloc[brand_row_num]["색상"] == "":
             list_col = ["ONE COLOR"]
         else:
             list_col = brand.iloc[brand_row_num]["색상"].split(',')
-        print(list_col)
+        
 
         if brand.iloc[brand_row_num]["사이즈"] == "":
             list_size = ["FREE"]
         else:
             list_size = brand.iloc[brand_row_num]["사이즈"].split(',')
-        print(list_size)
 
-
-        if brand.iloc[brand_row_num]["세부사이즈(상의)"] == "":
-            list_size_u1 = [""]
-        else:
+            #상의 세부사이즈만 있을 때
+        if brand.iloc[brand_row_num]["세부사이즈(상의)"] != "" and brand.iloc[brand_row_num]["세부사이즈(하의)"] == "":
             list_size_u1 = brand.iloc[brand_row_num]["세부사이즈(상의)"].split(',')
-            print(list_size_u1)
-
-        if brand.iloc[brand_row_num]["세부사이즈(상의)2"] == "":
-            list_size_u2 = [""]
-        else:
             list_size_u2 = brand.iloc[brand_row_num]["세부사이즈(상의)2"].split(',')
-        
-        if brand.iloc[brand_row_num]["세부사이즈(상의)3"] == "":
-            list_size_u3 = [""]
-        else:
             list_size_u3 = brand.iloc[brand_row_num]["세부사이즈(상의)3"].split(',')
-        
-        if brand.iloc[brand_row_num]["세부사이즈(상의)4"] == "":
-            list_size_u4 = [""]
-        else:
             list_size_u4 = brand.iloc[brand_row_num]["세부사이즈(상의)4"].split(',')
-        
-        if brand.iloc[brand_row_num]["세부사이즈(하의)"] == "":
-            list_size_d1 = [""]
-        else:
+        #하의 세부사이즈만 있을 때
+        elif brand.iloc[brand_row_num]["세부사이즈(하의)"] != "" and brand.iloc[brand_row_num]["세부사이즈(상의)"] == "":
             list_size_d1 = brand.iloc[brand_row_num]["세부사이즈(하의)"].split(',')
-        
-        if brand.iloc[brand_row_num]["세부사이즈(하의)2"] == "":
-            list_size_d2 = [""]
-        else:
             list_size_d2 = brand.iloc[brand_row_num]["세부사이즈(하의)2"].split(',')
-
-        if brand.iloc[brand_row_num]["세부사이즈(하의)3"] == "":
-            list_size_d3 = [""]
-        else:
             list_size_d3 = brand.iloc[brand_row_num]["세부사이즈(하의)3"].split(',')
-
-        if brand.iloc[brand_row_num]["세부사이즈(하의)4"] == "":
-            list_size_d4 = [""]
-        else:
             list_size_d4 = brand.iloc[brand_row_num]["세부사이즈(하의)4"].split(',')
-        
-        if brand.iloc[brand_row_num]["세부사이즈(하의)5"] == "":
-            list_size_d5 = [""]
-        else:
             list_size_d5 = brand.iloc[brand_row_num]["세부사이즈(하의)5"].split(',')
-
-        if brand.iloc[brand_row_num]["세부사이즈(하의)6"] == "":
-            list_size_d6 = [""]
-        else:
             list_size_d6 = brand.iloc[brand_row_num]["세부사이즈(하의)6"].split(',')
-    
-    
-    
-        #number of list
+        #모두 공백일 때
+        else:
+            list_size_u1 = ""
+            list_size_u2 = ""
+            list_size_u3 = ""
+            list_size_u4 = ""
+            list_size_d1 = ""
+            list_size_d2 = ""
+            list_size_d3 = ""
+            list_size_d4 = ""
+            list_size_d5 = ""
+            list_size_d6 = ""
+        # 값 할당   
         for nol_col in range(len(list_col)):
             for nol_size in range(len(list_size)):
-                val = {'상품명' : brand.iloc[brand_row_num]['제품명'],
-                        '구분(품번)' : brand.iloc[brand_row_num]['상품코드'],
-                        '정상공급가' : brand.iloc[brand_row_num]['가격'],
-                        '재고수량' : brand.iloc[brand_row_num]['재고수량'],
-                        '원산지(제조국)(영문)' : brand.iloc[brand_row_num]['원산지'],
-                        '소재' : brand.iloc[brand_row_num]['소재'], 
-                        '세탁방법' : brand.iloc[brand_row_num]['세탁방법'],
-                        '제품 설명' : brand.iloc[brand_row_num]['상품설명'],
-                        '색상(영문)' : list_col[nol_col],
-                        '사이즈' : list_size[nol_size],
-                        '상의-사이즈' : list_size[nol_size],
-                        '상의-어깨너비' : list_size_u1[nol_size],
-                        '상의-가슴너비' : list_size_u2[nol_size],
-                        '상의-소매길이' : list_size_u3[nol_size],
-                        '상의-총장(앞)' : list_size_u4[nol_size],
-                        '하의-사이즈' : list_size[nol_size],
-                        '하의-총장(아웃심)' : list_size_d1[nol_size],
-                        '하의-허리' : list_size_d2[nol_size],
-                        '하의-엉덩이' : list_size_d3[nol_size],
-                        '하의-허벅지' : list_size_d4[nol_size],
-                        '하의-밑위' : list_size_d5[nol_size],
-                        '하의-밑단' : list_size_d6[nol_size]
-                        }
-                
+                #세부사이즈(상의)만 있을 때
+                if brand.iloc[brand_row_num]["세부사이즈(상의)"] != "":
+                    #세부사이즈(상의) 개수 == 사이즈 개수
+                    if len(list_size_u1) == len(list_size):
+                        val = { '상의-어깨너비' : list_size_u1[nol_size],
+                                '상의-가슴너비' : list_size_u2[nol_size],
+                                '상의-소매길이' : list_size_u3[nol_size],
+                                '상의-총장(앞)' : list_size_u4[nol_size]
+                                }
+                    else:
+                        val = { '상의-어깨너비' : list_size_u1,
+                                '상의-가슴너비' : list_size_u2,
+                                '상의-소매길이' : list_size_u3,
+                                '상의-총장(앞)' : list_size_u4
+                                }
+                #세부사이즈(하의)만 있을 때
+                elif brand.iloc[brand_row_num]["세부사이즈(하의)"] != "":
+                    #세부사이즈(하의) 개수 == 사이즈 개수
+                    if len(list_size_d1) == len(list_size):
+                        val = { '하의-총장(아웃심)' : list_size_d1[nol_size],
+                                '하의-허리' : list_size_d2[nol_size],
+                                '하의-엉덩이' : list_size_d3[nol_size],
+                                '하의-허벅지' : list_size_d4[nol_size],
+                                '하의-밑위' : list_size_d5[nol_size],
+                                '하의-밑단' : list_size_d6[nol_size]
+                                }
+                    else:
+                        val = { '하의-총장(아웃심)' : list_size_d1,
+                                '하의-허리' : list_size_d2,
+                                '하의-엉덩이' : list_size_d3,
+                                '하의-허벅지' : list_size_d4,
+                                '하의-밑위' : list_size_d5,
+                                '하의-밑단' : list_size_d6
+                                }
+                #세부사이즈가 모두 공백일때
+                else:
+                    val = { '상의-어깨너비' : list_size_u1,
+                            '상의-가슴너비' : list_size_u2,
+                            '상의-소매길이' : list_size_u3,
+                            '상의-총장(앞)' : list_size_u4,
+                            '하의-총장(아웃심)' : list_size_d1,
+                            '하의-허리' : list_size_d2,
+                            '하의-엉덩이' : list_size_d3,
+                            '하의-허벅지' : list_size_d4,
+                            '하의-밑위' : list_size_d5,
+                            '하의-밑단' : list_size_d6
+                            } 
+                val['상품명'] = brand.iloc[brand_row_num]['제품명']
+                val['구분(품번)'] = brand.iloc[brand_row_num]['상품코드']
+                val['정상공급가'] = brand.iloc[brand_row_num]['가격']
+                val['재고수량'] = brand.iloc[brand_row_num]['재고수량']
+                val['원산지(제조국)(영문)'] = brand.iloc[brand_row_num]['원산지']
+                val['소재'] = brand.iloc[brand_row_num]['소재'] 
+                val['세탁방법'] = brand.iloc[brand_row_num]['세탁방법']
+                val['제품 설명'] = brand.iloc[brand_row_num]['상품설명']
+                val['색상(영문)'] = list_col[nol_col]
+                val['사이즈'] = list_size[nol_size]
+                val['상의-사이즈'] = list_size[nol_size]
+                val['하의-사이즈'] = list_size[nol_size]
+                        
                 data = data.append(val, ignore_index=True)
-    # 중국 서버용 형식에 맞게 변환 / 정확해보인것들 일부만 해봄.
-    #data["구분(품번)"] = brand["상품코드"]
-    # 브랜드에서 한글로 제품명 제공한경우, 영문으로 바꿔야함
-    #data["상품명"] = brand["제품명"]
-
-    #data["정상공급가"] = brand["가격"]
-    #data["색상(영문)"] = brand["색상"]
-    #data["사이즈"] = brand["사이즈"]
-    #data["재고수량"] = brand["재고수량"]
-    #data["원산지(제조국)(영문)"] = brand["원산지"] + "/Korea"
-    #data["세탁방법"] = brand["세탁방법"]
-    #data["소재"] = brand["소재"]
-    #data['스타일+사이즈'] = brand["상품코드"].str[0:8] + data['사이즈']
-    #data['제품 설명'] = brand['상품설명']
-
-    
 
     # 참조정보가 없는 컬럼 빈칸 처리
     for column in china_columns:
@@ -182,9 +161,12 @@ def brand2china(file_path,upload_path):
 
     brand_df = excel2df(file_path)
     del brand_df["이미지"]
-    #print([brand_df.index[0], brand_df.index[1]])
-    #brand_df.drop(brand_df.index[1], inplace=True)
+    brand_df.drop(brand_df.index[1], inplace=True)
+    
     brand_df = brand_df.reset_index()
+
+    brand_df.drop(brand_df.columns[0], axis=1, inplace=True)
+
     china_df = generate_df(brand_df, china_columns)
     
     df2excel(china_df,UPLOAD_CHINA_FORM,upload_path)

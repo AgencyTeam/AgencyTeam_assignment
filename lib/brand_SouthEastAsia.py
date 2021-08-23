@@ -69,27 +69,26 @@ def generate_df(brand,order_columns):
         
         # 분류에 따른 상세정보 입력
         if brand.iloc[brand_row_num]["분류"] == "상의":
-            
-        
+            des = "\n\n세부사이즈(상의)\n어깨너비 : " + brand.iloc[brand_row_num][top_col_num] + ", 가슴너비 : " + brand.iloc[brand_row_num][top_col_num+1] + ", 소매길이 : " + brand.iloc[brand_row_num][top_col_num+2] + ", 총장(앞) : " + brand.iloc[brand_row_num][top_col_num+3]
+        elif brand.iloc[brand_row_num]["분류"] == "하의":
+            des = "\n\n세부사이즈(하의)\n총장(아웃심) : " + brand.iloc[brand_row_num][bottom_col_num] + ", 허리 : " + brand.iloc[brand_row_num][bottom_col_num + 1]+ ", 엉덩이 : " + brand.iloc[brand_row_num][bottom_col_num + 2] + ", 허벅지 : " + brand.iloc[brand_row_num][bottom_col_num+3]+ ", 밑위 : " + brand.iloc[brand_row_num][bottom_col_num + 4] + ", 밑단 : " + brand.iloc[brand_row_num][bottom_col_num+5],
+        else:
+            des = "\n\n" + brand.iloc[brand_row_num]["세부사이즈(other)"]
+
         # 색상x사이즈 개수 만큼 row 늘려 값 집어넣기
-            for numOFlist_col in range(len(list_col)):
-                for numOFlist_size in range(len(list_size)):
-                    val = {'Product Name' : brand.iloc[brand_row_num]["제품명"],
-                            'Product Description' : brand.iloc[brand_row_num]["소재"]
-                                                    +"\n\n세부사이즈(상의)\n어깨너비 : " + brand.iloc[brand_row_num][top_col_num] + ", 가슴너비 : " + brand.iloc[brand_row_num][top_col_num+1]
-                                                    + ", 소매길이 : " + brand.iloc[brand_row_num][top_col_num+2] + ", 총장(앞) : " + brand.iloc[brand_row_num][top_col_num+3]
-                                                    + "\n세부사이즈(하의)\n총장(아웃심) : " + brand.iloc[brand_row_num][bottom_col_num] + ", 허리 : " + brand.iloc[brand_row_num][bottom_col_num + 1]
-                                                    + ", 엉덩이 : " + brand.iloc[brand_row_num][bottom_col_num + 2] + ", 허벅지 : " + brand.iloc[brand_row_num][bottom_col_num+3]
-                                                    + ", 밑위 : " + brand.iloc[brand_row_num][bottom_col_num + 4] + ", 밑단 : " + brand.iloc[brand_row_num][bottom_col_num+5],
-                            'Price' : brand.iloc[brand_row_num]["가격"],
-                            'Stock' : brand.iloc[brand_row_num]["재고수량"],
-                            'Weight' : list_weight[numOFlist_size],
-                            # 'Variation Integration No.' : brand.iloc[brand_row_num]["상품코드"],
-                            'Variation Name1' : "COLOR",
-                            'Option for Variation 1' : list_col[numOFlist_col],
-                            'Variation Name2' : "SIZE",
-                            'Option for Variation 2' : list_size[numOFlist_size],
-                            'Standard Express - Korea' : 'On'}
+        for numOFlist_col in range(len(list_col)):
+            for numOFlist_size in range(len(list_size)):
+                val = {'Product Name' : brand.iloc[brand_row_num]["제품명"],
+                        'Product Description' : brand.iloc[brand_row_num]["소재"] + str(des),
+                        'Price' : brand.iloc[brand_row_num]["가격"],
+                        'Stock' : brand.iloc[brand_row_num]["재고수량"],
+                        'Weight' : list_weight[numOFlist_size],
+                        # 'Variation Integration No.' : brand.iloc[brand_row_num]["상품코드"],
+                        'Variation Name1' : "COLOR",
+                        'Option for Variation 1' : list_col[numOFlist_col],
+                        'Variation Name2' : "SIZE",
+                        'Option for Variation 2' : list_size[numOFlist_size],
+                        'Standard Express - Korea' : 'On'}
 
 # 'Category','Maximum Purchase Quantity','Maximum Purchase Quantity - Start Date'
 # ,'Maximum Purchase Quantity - Time Period (in Days)','Maximum Purchase Quantity - End Date','Parent SKU'
@@ -142,7 +141,6 @@ def brand2SEA(file_path,upload_path):
     brand_df = brand_df.reset_index()
     # reset_index 해주면서 생기는 index 컬럼 삭제
     brand_df.drop(brand_df.columns[0],axis=1,inplace=True)
-    print(brand_df)
     # print(type(brand_df.iloc[0]))  #<class 'pandas.core.series.Series'>
     sea_df = generate_df(brand_df,order_columns)
     df2excel(sea_df,UPLOAD_SEA_FORM,upload_path)

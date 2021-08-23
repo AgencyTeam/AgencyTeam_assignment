@@ -3,7 +3,6 @@ from path import UPLOAD_SEA_FORM
 from openpyxl import load_workbook 
 
 
-# def excel2df(file_path, sheet_name, a)
 def excel2df(file_path):
     try:
         df = pd.read_excel(file_path)
@@ -27,12 +26,6 @@ def generate_df(brand,order_columns):
         if brand.columns[i] == '세부사이즈(하의)' :
             bottom_col_num = i
 
-    # # 만약 컬럼명이 Unnamed로 정의되어 있다면, '그 전 컬럼의 이름 + 숫자'를 컬럼명으로 바꾸어줌.
-    # for i in range(len(brand.columns)):
-    #     if 'Unnamed:' in brand.columns[i]:
-    #         list_num.append(str(i))
-    #         brand.rename(columns={brand.columns[i] : brand.columns[i-1] + str(i)},inplace=True)
-
     for brand_row_num1 in range(len(brand.index)-1):
         # 사이즈 값이 없을 때 = one size, 색상 값이 없을 떄 = one color
         # 색,사이즈 개수가 2개 이상이면, row 추가해 각 컬럼에 색,사이즈 하나씩만 들어갈 수 있도록.
@@ -50,7 +43,6 @@ def generate_df(brand,order_columns):
             list_size = ["ONE SIZE"]
         else:
             list_size = brand.iloc[brand_row_num]["사이즈"]
-            # list_size = str(list_size)
             list_size = list_size.split(',')
             list_size = [i.strip() for i in list_size]
 
@@ -65,15 +57,12 @@ def generate_df(brand,order_columns):
             list_weight = [""]
         else:
             list_weight = brand.iloc[brand_row_num]["무게(g)"]
-            # list_weight = str(list_weight)
-            list_weight = list_weight.split(',') # 이 부분 다시 확인.
+            list_weight = list_weight.split(',') 
             list_weight = [i.strip() for i in list_weight]
             list_weight = list(map(int, list_weight))
             for i in range(len(list_weight)):
                 list_weight[i] = list_weight[i]/1000
-        
-        # print("가슴너비 : " + brand.iloc[0][top_col_num])
-        
+                
         # 분류에 따른 상세정보 입력
         classification = brand.iloc[brand_row_num]["분류"]
         classification = classification.split(',')
@@ -103,6 +92,7 @@ def generate_df(brand,order_columns):
                         'Option for Variation 2' : list_size[numOFlist_size],
                         'Standard Express - Korea' : 'On'}
 
+# 사용되지 않은 동남아서버 컬럼들
 # 'Category','Maximum Purchase Quantity','Maximum Purchase Quantity - Start Date'
 # ,'Maximum Purchase Quantity - Time Period (in Days)','Maximum Purchase Quantity - End Date','Parent SKU'
 # ,'Image per Variation'
@@ -110,10 +100,6 @@ def generate_df(brand,order_columns):
 # ,'Length','Width','Height','Standard Express - Korea','Pre-order DTS'
 
                 data = data.append(val, ignore_index=True)
-        
-        # print(data)
-
-        # data["이미지"] = brand["상품코드"].apply(lambda x : [name for name in jpg_list if x in name])
 
     # 참조정보가 없는 컬럼 빈칸 처리
     for column in order_columns:
@@ -154,6 +140,5 @@ def brand2SEA(file_path,upload_path):
     brand_df = brand_df.reset_index()
     # reset_index 해주면서 생기는 index 컬럼 삭제
     brand_df.drop(brand_df.columns[0],axis=1,inplace=True)
-    # print(type(brand_df.iloc[0]))  #<class 'pandas.core.series.Series'>
     sea_df = generate_df(brand_df,order_columns)
     df2excel(sea_df,UPLOAD_SEA_FORM,upload_path)

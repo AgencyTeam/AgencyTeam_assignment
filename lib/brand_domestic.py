@@ -5,7 +5,7 @@ pd.set_option("display.max_columns",20)
 
 def excel2df(file_path):
     try:
-        df = pd.read_excel(file_path,sheet_name="국내서버")
+        df = pd.read_excel(file_path,sheet_name=None)
         df = df.fillna("")
         return df
     except:

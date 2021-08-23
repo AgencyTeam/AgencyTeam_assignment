@@ -5,7 +5,7 @@ from openpyxl import load_workbook
 
 def excel2df(file_path):
     try:
-        df = pd.read_excel(file_path, sheet_name='국내서버')
+        df = pd.read_excel(file_path, sheet_name=None)
         df = df.fillna("")
         return df
     except:

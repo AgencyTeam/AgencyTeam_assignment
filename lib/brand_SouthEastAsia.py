@@ -54,6 +54,13 @@ def generate_df(brand,order_columns):
             list_size = list_size.split(',')
             list_size = [i.strip() for i in list_size]
 
+        # 재고수량
+        list_stock = brand.iloc[brand_row_num]["재고수량"]
+        list_stock = list_stock.split(',')
+        list_stock = [i.strip() for i in list_stock]
+        list_stock = list(map(int, list_stock))
+
+        # 무게
         if brand.iloc[brand_row_num]["무게(g)"] == "":
             list_weight = [""]
         else:
@@ -81,10 +88,13 @@ def generate_df(brand,order_columns):
         # 색상x사이즈 개수 만큼 row 늘려 값 집어넣기
         for numOFlist_col in range(len(list_col)):
             for numOFlist_size in range(len(list_size)):
+                if len(list_col)>=len(list_size):
+                    k = numOFlist_col
+                else : k = numOFlist_size
                 val = {'Product Name' : brand.iloc[brand_row_num]["제품명"],
                         'Product Description' : brand.iloc[brand_row_num]["소재"] + str(des),
                         'Price' : brand.iloc[brand_row_num]["가격"],
-                        'Stock' : brand.iloc[brand_row_num]["재고수량"],
+                        'Stock' : list_stock[k],
                         'Weight' : list_weight[numOFlist_size],
                         # 'Variation Integration No.' : brand.iloc[brand_row_num]["상품코드"],
                         'Variation Name1' : "COLOR",

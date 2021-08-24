@@ -1,6 +1,6 @@
 from transform.auth import login_required
 from flask import Blueprint, render_template, request
-from lib.order_transform import excel2df, make_excel
+from lib.order_transform import make_excel
 from path import UPLOAD_DIR_PATH, ROOT_PATH
 import datetime as dt
 import json

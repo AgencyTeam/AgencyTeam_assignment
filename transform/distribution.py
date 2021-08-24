@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request
 from transform.auth import login_required
 from lib.distribution_transform import distribution_from_orderinfo
-from pathlib import Path
 import datetime as dt
 import json
 from path import UPLOAD_DIR_PATH, ROOT_PATH

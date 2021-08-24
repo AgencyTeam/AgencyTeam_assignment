@@ -66,4 +66,4 @@
 
     - data가 담긴 엑셀 파일을 각 플랫폼 업로드 시트에 맞춘 엑셀파일로 변환
    
-docker-compose 방법 : docker-compose.yml 있는 경로에서 CLI로 'docker-compose -d --build' 실행하면 됨.
+docker-compose 방법 : docker-compose.yml 있는 경로에서 CLI로 'docker-compose up -d --build' 실행하면 됨.

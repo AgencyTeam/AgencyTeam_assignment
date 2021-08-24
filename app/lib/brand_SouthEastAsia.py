@@ -68,21 +68,43 @@ def generate_df(brand, order_columns):
         classification = brand.iloc[brand_row_num]["분류"]
         classification = classification.split(',')
         classification = [i.strip() for i in classification]
-        if "상의" in classification:
-            top_des = "\n\n세부사이즈(상의)\n어깨너비 : " + brand.iloc[brand_row_num][top_col_num] + ", 가슴너비 : " + brand.iloc[brand_row_num][top_col_num+1] + \
-                ", 소매길이 : " + brand.iloc[brand_row_num][top_col_num+2] + \
-                ", 총장(앞) : " + brand.iloc[brand_row_num][top_col_num+3]
-        else:
-            top_des = ""
-        if "하의" in classification:
-            bot_des = "\n\n세부사이즈(하의)\n총장(아웃심) : " + brand.iloc[brand_row_num][bottom_col_num] + ", 허리 : " + brand.iloc[brand_row_num][bottom_col_num + 1] + ", 엉덩이 : " + brand.iloc[brand_row_num][bottom_col_num +
-                                                                                                                                                                                                   2] + ", 허벅지 : " + brand.iloc[brand_row_num][bottom_col_num+3] + ", 밑위 : " + brand.iloc[brand_row_num][bottom_col_num + 4] + ", 밑단 : " + brand.iloc[brand_row_num][bottom_col_num+5]
-        else:
-            bot_des1 = ""
-        if "other" in classification:
-            o_des = "\n\n" + brand.iloc[brand_row_num]["세부사이즈(other)"]
-        else:
-            o_des = ""
+        def des(num_size):
+            top1 = brand.iloc[brand_row_num][top_col_num].split(',') # 상의 어깨너비
+            top1 = [i.strip() for i in top1]
+            top2 = brand.iloc[brand_row_num][top_col_num + 1].split(',') # 상의 가슴너비
+            top2 = [i.strip() for i in top2]
+            top3 = brand.iloc[brand_row_num][top_col_num + 2].split(',') # 상의 소매길이
+            top3 = [i.strip() for i in top3]
+            top4 = brand.iloc[brand_row_num][top_col_num + 3].split(',') # 상의 총장(앞)
+            top4 = [i.strip() for i in top4]
+            bot1 = brand.iloc[brand_row_num][bottom_col_num].split(',') # 하의 총장(아웃심)
+            bot1 = [i.strip() for i in bot1]
+            bot2 = brand.iloc[brand_row_num][bottom_col_num + 1].split(',') # 하의 허리
+            bot2 = [i.strip() for i in bot2]
+            bot3 = brand.iloc[brand_row_num][bottom_col_num + 2].split(',') # 하의 엉덩이
+            bot3 = [i.strip() for i in bot3]
+            bot4 = brand.iloc[brand_row_num][bottom_col_num + 3].split(',') # 하의 허벅지
+            bot4 = [i.strip() for i in bot4]
+            bot5 = brand.iloc[brand_row_num][bottom_col_num + 4].split(',') # 하의 밑위
+            bot5 = [i.strip() for i in bot5]
+            bot6 = brand.iloc[brand_row_num][bottom_col_num + 5].split(',') # 하의 밑단
+            bot6 = [i.strip() for i in bot6]
+            if "상의" in classification:
+                top_des = "\n\n세부사이즈(상의)\n어깨너비 : " + top1[num_size] + ", 가슴너비 : " + top2[num_size] + \
+                    ", 소매길이 : " + top3[num_size] + ", 총장(앞) : " + top4[num_size]
+            else:
+                top_des = ""
+            if "하의" in classification:
+                bot_des = "\n\n세부사이즈(하의)\n총장(아웃심) : " + bot1[num_size] + ", 허리 : " + bot2[num_size] + \
+                    ", 엉덩이 : " + bot3[num_size] + ", 허벅지 : " + bot4[num_size] + \
+                    ", 밑위 : " + bot5[num_size] + ", 밑단 : " + bot6[num_size]
+            else:
+                bot_des = ""
+            if "other" in classification:
+                o_des = "\n\n" + brand.iloc[brand_row_num]["세부사이즈(other)"]
+            else:
+                o_des = ""
+            return str(top_des) + str(bot_des) + str(o_des)
 
         # 색상x사이즈 개수 만큼 row 늘려 값 집어넣기
         for numOFlist_col in range(len(list_col)):
@@ -92,7 +114,7 @@ def generate_df(brand, order_columns):
                 else:
                     k = numOFlist_size
                 val = {'Product Name': brand.iloc[brand_row_num]["제품명"],
-                       'Product Description': brand.iloc[brand_row_num]["소재"] + str(top_des) + str(bot_des) + str(o_des),
+                       'Product Description': brand.iloc[brand_row_num]["소재"] + des(numOFlist_size),
                        'Price': brand.iloc[brand_row_num]["가격"],
                        'Stock': list_stock[k],
                        'Weight': list_weight[numOFlist_size],

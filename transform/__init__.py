@@ -3,7 +3,7 @@ import secrets
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, send_from_directory
-from path import UPLOAD_DIR_PATH
+from .path import UPLOAD_DIR_PATH
 from . import main
 from . import order
 from . import db

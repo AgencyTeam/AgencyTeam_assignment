@@ -1,6 +1,6 @@
 import pandas as pd
 from openpyxl import load_workbook
-from path import DISTRIBUTION_EXCEL_FORM
+from transform.path import DISTRIBUTION_EXCEL_FORM
 
 # 주문정보->물류파일 변환
 # 파일 불러오기

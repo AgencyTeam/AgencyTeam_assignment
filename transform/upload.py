@@ -2,10 +2,8 @@ from flask import Blueprint, render_template, request
 from lib.brand_domestic import brand2domestic
 from lib.brand_SouthEastAsia import brand2SEA
 from lib.brand_china import brand2china
-from path import UPLOAD_DIR_PATH
+from .path import UPLOAD_DIR_PATH
 import datetime as dt
-from zipfile import ZipFile
-import pandas as pd
 
 bp = Blueprint('upload', __name__, url_prefix='/upload')
 

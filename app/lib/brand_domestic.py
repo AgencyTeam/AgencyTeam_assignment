@@ -7,7 +7,7 @@ pd.set_option("display.max_columns", 20)
 def excel2df(file_path):
     try:
         df = pd.read_excel(file_path)
-        df = df.fillna("NaN_Value")
+        df = df.fillna("")
         return df
     except:
         print("엑셀파일을 불러오는데 실패했습니다.")
@@ -119,7 +119,6 @@ def generate_df(brand, order_columns):
             data[column] = ""
 
     data = data[order_columns]
-    data = data.replace("NaN_Value", "")
     return data
 
 

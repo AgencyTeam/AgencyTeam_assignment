@@ -77,7 +77,7 @@ def generate_df(brand, order_columns):
     # 정가
     data["재고사용"] = "Y"
     # SKU(재고번호)
-    data["대표이미지파일명"] = brand["이미지"]
+    data["대표 이미지 파일명"] = brand["이미지"]
     data["상품 상세정보"] = brand["상세정보(html)"]
     data["세금"] = "과세상품"
     data["미성년자 구매"] = "Y"

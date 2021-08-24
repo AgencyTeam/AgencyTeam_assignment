@@ -3,7 +3,7 @@ from transform.auth import login_required
 from lib.distribution_transform import distribution_from_orderinfo
 import datetime as dt
 import json
-from .path import UPLOAD_DIR_PATH, ROOT_PATH
+from .path import UPLOAD_DIR_PATH, ROOT_PATH, DISTRIBUTION_JSON_PATH
 
 bp = Blueprint('distribution', __name__, url_prefix='/distribution')
 
@@ -13,7 +13,7 @@ bp = Blueprint('distribution', __name__, url_prefix='/distribution')
 @bp.route('/', methods=['GET', 'POST'])
 @login_required
 def distribution():
-    with open(ROOT_PATH + "/transform/default_json/distribution.json", 'r', encoding='utf-8') as f:
+    with open(DISTRIBUTION_JSON_PATH, 'r', encoding='utf-8') as f:
         data = json.load(f)
         return render_template('distribution/distribution.html', data=data)
 
@@ -39,7 +39,7 @@ def distribution_complete():
 @bp.route('/default_update', methods=['GET', 'POST'])
 def distribution_default_update():
     if request.method == 'GET':
-        with open(ROOT_PATH + "/transform/default_json/distribution.json", 'r', encoding='utf-8') as f:
+        with open(DISTRIBUTION_JSON_PATH, 'r', encoding='utf-8') as f:
             data = json.load(f)
             return render_template('distribution/distribution_default.html', data=data)
 
@@ -50,7 +50,7 @@ def distribution_default_update():
         for key in form_data:
             info[key] = form_data[key]
 
-        with open(ROOT_PATH + "/transform/default_json/distribution.json", 'w', encoding='utf-8') as f:
+        with open(DISTRIBUTION_JSON_PATH, 'w', encoding='utf-8') as f:
             try:
                 json.dump(info, f, ensure_ascii=False, indent='\t')
                 success = True

@@ -1,7 +1,7 @@
 from transform.auth import login_required
 from flask import Blueprint, render_template, request
 from lib.order_transform import make_excel
-from .path import UPLOAD_DIR_PATH, ROOT_PATH
+from .path import UPLOAD_DIR_PATH, ROOT_PATH, ORDER_JSON_PATH
 import datetime as dt
 import json
 
@@ -11,7 +11,7 @@ bp = Blueprint('order', __name__, url_prefix='/order')
 @bp.route('/', methods=['GET', 'POST'])
 @login_required
 def order():
-    with open(ROOT_PATH + "/transform/default_json/order.json", 'r', encoding='utf-8') as f:
+    with open(ORDER_JSON_PATH, 'r', encoding='utf-8') as f:
         data = json.load(f)
         return render_template('order/order.html', data=data)
 
@@ -38,7 +38,7 @@ def order_complete():
 @bp.route('/default_update', methods=['GET', 'POST'])
 def order_default_update():
     if request.method == 'GET':
-        with open(ROOT_PATH + "/transform/default_json/order.json", 'r', encoding='utf-8') as f:
+        with open(ORDER_JSON_PATH, 'r', encoding='utf-8') as f:
             data = json.load(f)
             return render_template('order/order_default.html', data=data)
 
@@ -49,7 +49,7 @@ def order_default_update():
         for key in form_data:
             info[key] = form_data[key]
 
-        with open(ROOT_PATH + "/transform/default_json/order.json", 'w', encoding='utf-8') as f:
+        with open(ORDER_JSON_PATH, 'w', encoding='utf-8') as f:
             try:
                 json.dump(info, f, ensure_ascii=False, indent='\t')
                 success = True

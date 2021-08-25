@@ -3,17 +3,15 @@
 
 **통합적으로 사용할 수 있는 Web application 구현**
 
-- Web Application Framework : Flask(+uwsgi)
+- Web Application Framework : Flask(+uWSGI)
 
-- Web Server : nginx
+- Web Server : NGINX
 
 - DB : SQLite3
 
 - DevOps : Docker (ubuntu 20.04)
 
 - UI : Bootstrap (HTML, CSS, JS)
-
-- Programming Language : Python (3.9.6)
 
 
 
@@ -96,16 +94,47 @@
 
 # 서버 실행 방법
 
-**[Windows, MAC OS, Linux(Ubuntu 20.04)]**
+**OS : Windows, MacOS, Linux(Ubuntu 20.04)**
+
+**1. docker-compose [NGINX + Flask(+uWSGI)]**
 
 docker-compose.yml 이 있는 경로에서
 
+    # URL에서 localhost 로 접속가능
+    
     $ docker-compose up -d --build
 
-**URL에서 localhost 로 접속가능**
+**2. Flask 내장 서버 이용**
+
+'transform' 모듈이 있는 경로에서 (./app)
+
+[Linux, MacOS]
+
+    $ export FLASK_APP=transform
+    $ export FLASK_ENV=development
+    $ flask init-db
+    $ flask run
+
+[Windows cmd]
+
+    > set FLASK_APP=transform
+    > set FLASK_ENV=development
+    > flask init-db
+    > flask run
+
+[Windows PowerShell]
+
+    > $env:FLASK_APP='transform'
+    > $env:FLASK_ENV='development'
+    > flask init-db
+    > flask run
+
+※ flask init-db : DB Clear Command
 
 # 개발 환경 설정 방법
-    
+
+**docker-compose**
+
     [./app/Dockerfile]
     ...
     ENV FLASK_ENV=production

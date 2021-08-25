@@ -7,14 +7,12 @@
             <div class="col">
             <center><h2><p class="text-white">Upload Brand Data for Server!</p></h2></center>
             <br>
-            <img src="{{ url_for('static', filename = 'img/decant.png') }}", width="200" 
-                style="margin-left: auto; margin-right: auto; display: block;")/>
+            <img src="{{ url_for('static', filename = 'img/decant.png') }}", width="200" style="margin-left: auto; margin-right: auto; display: block;")/>
             
             <div class="col" style="padding: 10% 0px 22% 0px;" >
                 <br><br>
-                <center>
                 <form action = "{{ url_for('upload.upload_complete') }}" method = "POST" enctype = "multipart/form-data">
-                <div class="input-group mb-3 mx-auto">
+                <div class="input-group">
                     <div class="mb-4">
                         <input class="form-control" type="file" name="file" accept=".xlsx" required>
                     </div>
@@ -35,7 +33,7 @@
                 <div class="text-center"><input type="submit" value="Upload" class="btn btn-secondary"></div>
                 <br><br>
                 </form>
-                </center>
+                
             </div>
             </div>
             <div class="col"></div>

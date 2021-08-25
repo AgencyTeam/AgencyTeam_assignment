@@ -92,11 +92,12 @@
     
     기능 1, 2 에서 추가적인 정보의 default 값 설정 기능
 
+
 # 서버 실행 방법
 
 **OS : Windows, MacOS, Linux(Ubuntu 20.04)**
 
-**1. docker-compose [NGINX + Flask(+uWSGI)]**
+**• docker-compose [NGINX + Flask(+uWSGI)]**
 
 docker-compose.yml 이 있는 경로에서
 
@@ -104,7 +105,20 @@ docker-compose.yml 이 있는 경로에서
     
     $ docker-compose up -d --build
 
-**2. Flask 내장 서버 이용**
+---
+
+**• Flask 내장 서버 이용**
+
+1. 필요 라이브러리 설치
+
+requirements.txt 파일이 있는 경로에서 (./app)
+    
+    $ pip install -r requirements.txt
+
+※ Windows 환경일 경우, requirements.txt 에서 uWSGI를 지워주셔야 합니다.
+
+
+2. Flask 실행
 
 'transform' 모듈이 있는 경로에서 (./app)
 

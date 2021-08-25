@@ -101,6 +101,7 @@ def generate_df(transformed_order_df, form_data, order_columns):
     return new_df
 
 
+# generate_df 를 통해 나온 df 엑셀파일로 변환하여 저장
 def df2excel(df, form_path, new_path):
     wb = load_workbook(form_path)
     ws = wb['발주파일']
@@ -118,6 +119,7 @@ def df2excel(df, form_path, new_path):
     wb.save(new_path)
 
 
+# 전체적인 발주파일 생성 함수
 def make_excel(file, form_data, upload_path):
     need_columns = ['product model', 'vendor product No.',
                     'product quantity', 'order No.', 'create time', 'settle price']

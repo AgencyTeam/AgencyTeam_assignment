@@ -2,10 +2,9 @@ import pandas as pd
 from openpyxl import load_workbook
 from transform.path import DISTRIBUTION_EXCEL_FORM
 
+
 # 주문정보->물류파일 변환
 # 파일 불러오기
-
-
 def order_info(file_path, sheet_name=None):
     if sheet_name:
         try:
@@ -54,8 +53,7 @@ def distribution_df(order_info_df, form_data, distribution_columns):
 
     new_df = pd.DataFrame(distribution_dict)
 
-
-# 얻지 못하는 값들은 빈 값 처리
+    # 얻지 못하는 값들은 빈 값 처리
     for column in distribution_columns:
         if (column in new_df.columns):
             continue
@@ -68,6 +66,7 @@ def distribution_df(order_info_df, form_data, distribution_columns):
     return New_distribution_df
 
 
+# 주석
 def append_value(df, form_path, new_path):
     wb = load_workbook(form_path)
     ws = wb['물류파일']
@@ -84,6 +83,7 @@ def append_value(df, form_path, new_path):
     wb.save(new_path)
 
 
+# 주석
 def distribution_from_orderinfo(file, form_data, upload_path):
     # sheet_name = {'발주':'발주파일', '물류':'물류파일', '상품':'commodity', '주문[영문]':'secoo주문영문', '주문[중문]': 'secoo주문중문', '마스터': '마스타파일'}
     # need_columns = ['order No.', 'customer name', 'customer phone', 'detailed address', 'city', 'province', 'certificates NO.', 'vedor remark']

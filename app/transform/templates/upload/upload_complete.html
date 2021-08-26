@@ -5,12 +5,17 @@
     <div class="row">
         <div class="col"></div>
         <div class="col align-self-center" style="padding: 10% 0px 22% 0px;">
-            <center><h3><p class="text-white">Download File!</p></h3></center>
+            <center>
+                <br>
+                <legend>
+                <p class="text-white fs-2">Download File!</p>
+                </legend><br>
+            </center>
             <br>
             <img src="{{ url_for('static', filename = 'img/excel.png') }}", width="100" 
                 style="margin-left: auto; margin-right: auto; display: block;")/>
             <center>
-                <div class="text-left mx-auto w-25">
+                <div class="text-left mx-auto">
                     <h1></h1>
                     <br><br>
                     {% if 'Domestic' in server_list %}

@@ -36,6 +36,12 @@ def generate_df(brand, china_columns):
         else:
             list_size = brand.iloc[brand_row_num]["사이즈"].split(',')
 
+        list_stock = brand.iloc[brand_row_num]["재고수량"]
+        list_stock = list_stock.split(',')
+        list_stock = [i.strip() for i in list_stock]
+        list_stock = list(map(int, list_stock))
+        
+
             # 상의 세부사이즈만 있을 때
         if brand.iloc[brand_row_num]["세부사이즈(상의)"] != "" and brand.iloc[brand_row_num]["세부사이즈(하의)"] == "":
             list_size_u1 = brand.iloc[brand_row_num]["세부사이즈(상의)"].split(',')
@@ -66,6 +72,10 @@ def generate_df(brand, china_columns):
         for nol_col in range(len(list_col)):
             for nol_size in range(len(list_size)):
                 # 세부사이즈(상의)만 있을 때
+                if len(list_col) >= len(list_size):
+                    k = nol_col
+                else:
+                    k = nol_size
                 if brand.iloc[brand_row_num]["세부사이즈(상의)"] != "":
                     # 세부사이즈(상의) 개수 == 사이즈 개수
                     if len(list_size_u1) == len(list_size):
@@ -124,6 +134,7 @@ def generate_df(brand, china_columns):
                 val['사이즈'] = list_size[nol_size]
                 val['상의-사이즈'] = list_size[nol_size]
                 val['하의-사이즈'] = list_size[nol_size]
+                val['재고수량'] = list_stock[k]
 
                 data = data.append(val, ignore_index=True)
 
